@@ -1,0 +1,8 @@
+packages:
+  - 'api'
+  - 'components'
+  - 'core'
+  - 'helpers'
+  - 'theme'
+  - 'platform'
+  - 'docs'

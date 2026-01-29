@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       lib: {
-        entry: 'src/index.ts',
+        entry: 'src/library.ts',
         name: 'DifyChatWidget',
         formats: ['es', 'cjs'],
         fileName: (format) => `index.${format === 'es' ? 'es.js' : 'js'}`,
