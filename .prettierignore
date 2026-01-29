@@ -1,0 +1,13 @@
+node_modules
+dist
+build
+coverage
+.next
+.cache
+
+# 生成的文件
+*.min.js
+*.min.css
+
+# 日志
+*.log

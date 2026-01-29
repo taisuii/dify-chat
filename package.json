@@ -1,0 +1,76 @@
+{
+    "name": "dify-chat-widget",
+    "version": "0.1.0",
+    "description": "A chat component made for Dify",
+    "main": "dist/index.js",
+    "module": "dist/index.es.js",
+    "types": "dist/index.d.ts",
+    "style": "dist/dify-chat-widget.css",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite build --watch",
+        "demo": "vite --mode demo",
+        "lint": "eslint . --ext .ts,.tsx --report-unused-disable-directives --max-warnings 0",
+        "lint:fix": "eslint . --ext .ts,.tsx --fix",
+        "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\" \"*.{md,json}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\" \"*.{md,json}\"",
+        "typecheck": "tsc --noEmit",
+        "check": "npm run typecheck && npm run lint && npm run format:check",
+        "test": "echo \"Error: no tests yet\" && exit 0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/taisuii/dify-chat-widget.git"
+    },
+    "keywords": [
+        "react",
+        "chat",
+        "widget",
+        "dify"
+    ],
+    "author": "",
+    "license": "MIT",
+    "peerDependencies": {
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0"
+    },
+    "bugs": {
+        "url": "https://github.com/taisuii/dify-chat-widget/issues"
+    },
+    "homepage": "https://github.com/taisuii/dify-chat-widget#readme",
+    "dependencies": {
+        "date-fns": "^3.3.1",
+        "focus-trap-react": "^10.2.3",
+        "framer-motion": "^11.0.0",
+        "lucide-react": "^0.344.0",
+        "react-markdown": "^9.0.1",
+        "react-syntax-highlighter": "^15.5.0",
+        "react-window": "^1.8.10",
+        "remark-gfm": "^4.0.0",
+        "use-debounce": "^10.0.0"
+    },
+    "devDependencies": {
+        "@babel/plugin-transform-react-jsx": "^7.28.6",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "@types/react-syntax-highlighter": "^15.5.11",
+        "@types/react-window": "^1.8.8",
+        "@typescript-eslint/eslint-plugin": "^7.0.0",
+        "@typescript-eslint/parser": "^7.0.0",
+        "@vitejs/plugin-react": "^4.3.4",
+        "antd": "^6.2.2",
+        "eslint": "^8.57.0",
+        "eslint-plugin-jsx-a11y": "^6.8.0",
+        "eslint-plugin-react": "^7.34.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "prettier": "^3.2.5",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "typescript": "^5.9.3",
+        "vite": "^6.0.5",
+        "vite-plugin-dts": "^4.5.4"
+    }
+}

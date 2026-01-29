@@ -1,0 +1,23 @@
+# Source files
+src/
+test-app/
+
+# Development files
+*.config.*
+tsconfig.json
+.gitignore
+.editorconfig
+
+# Build artifacts
+node_modules/
+dist/
+
+# Documentation
+README.md
+LICENSE
+
+# Testing
+*.test.ts
+*.test.tsx
+__tests__/
+coverage/
