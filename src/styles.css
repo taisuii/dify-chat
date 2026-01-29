@@ -514,90 +514,16 @@
   flex: 1;
   position: relative;
   overflow: hidden;
-  background: var(--dify-bg-primary);
 }
 
-/* Kimi 风格：每条消息占据整行（row），内部 max-width 居中 */
 .dify-message-list__container {
   height: 100%;
   overflow-y: auto;
-  padding: 0;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  scroll-behavior: smooth;
-}
-
-/* 行容器：对应 Kimi 的 group py-4 px-4 md:px-6 */
-.dify-message-row {
-  padding: 16px 16px;
-}
-
-@media (min-width: 768px) {
-  .dify-message-row {
-    padding: 16px 24px;
-  }
-}
-
-.dify-message-row--user {
-  background: color-mix(in srgb, var(--dify-bg-tertiary) 40%, transparent);
-}
-
-.dify-message-row--assistant {
-  background: var(--dify-bg-primary);
-}
-
-.dify-message-row__inner {
-  max-width: 56rem; /* ~= max-w-4xl */
-  margin: 0 auto;
-  display: flex;
   gap: 16px;
-  align-items: flex-start;
-}
-
-.dify-message-row__inner--user {
-  flex-direction: row-reverse;
-}
-
-.dify-message-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 9999px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-}
-
-.dify-message-avatar--user {
-  background: var(--dify-accent);
-  color: var(--dify-accent-contrast);
-  font-weight: 600;
-}
-
-.dify-message-avatar--assistant {
-  background: var(--dify-bg-tertiary);
-  color: var(--dify-text-primary);
-}
-
-.dify-message-main {
-  flex: 1;
-  min-width: 0;
-}
-
-.dify-message-main--user {
-  text-align: right;
-}
-
-.dify-message-timestamp {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--dify-text-tertiary);
-}
-
-.dify-message-timestamp--user {
-  text-align: right;
+  scroll-behavior: smooth;
 }
 
 .dify-message-list__scroll-btn {
@@ -653,48 +579,24 @@
   max-width: 75%;
   padding: 12px 16px;
   border-radius: var(--dify-radius-lg);
-  line-height: 1.6;
+  line-height: 1.5;
   font-size: 14px;
   word-break: break-word;
   position: relative;
-  display: inline-block;
-  text-align: left;
 }
 
-/* Kimi 风格：用户气泡更圆，右上角小折角 */
 .dify-message-bubble--user {
   align-self: flex-end;
   background: var(--dify-accent);
   color: var(--dify-accent-contrast);
-  border-radius: 16px;
-  border-top-right-radius: 6px;
+  border-bottom-right-radius: 4px;
 }
 
-/* Kimi 风格：assistant 不强制气泡背景（主要依赖 prose），但保留轻底色用于兼容 */
 .dify-message-bubble--assistant {
   align-self: flex-start;
-  background: transparent;
+  background: var(--dify-bg-tertiary);
   color: var(--dify-text-primary);
-  padding: 0;
-  max-width: 100%;
-}
-
-/* assistant 内容块内的 markdown 容器 */
-.dify-message-bubble__content--markdown {
-  max-width: none;
-}
-
-/* 类似 Kimi 的 inline code */
-.dify-message-bubble__content--markdown code {
-  padding: 2px 6px;
-  background: color-mix(in srgb, var(--dify-bg-tertiary) 70%, transparent);
-  border-radius: 6px;
-  font-size: 0.9em;
-}
-
-.dify-message-bubble__content--markdown pre {
-  background: color-mix(in srgb, var(--dify-bg-tertiary) 90%, transparent);
-  border-radius: 10px;
+  border-bottom-left-radius: 4px;
 }
 
 .dify-message-bubble__content {
