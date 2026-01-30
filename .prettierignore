@@ -1,13 +1,11 @@
+# Lock files
+package-lock.json
+yarn.lock
+
 node_modules
+
 dist
-build
-coverage
 .next
-.cache
+doc_build
 
-# 生成的文件
-*.min.js
-*.min.css
-
-# 日志
-*.log
+.dify-chat

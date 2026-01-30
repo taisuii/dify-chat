@@ -1,0 +1,41 @@
+# Docker Compose 配置文件 - 本地开发环境
+# 适用场景：本地开发，需要构建镜像并支持代码修改
+# 使用方法: COMPOSE_BAKE=true docker-compose -f docker-compose.dev.yml up --build
+
+services:
+  # React App 前端应用
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile_react_app
+    container_name: dify-chat-app-react-self-deploy
+    ports:
+      - '5200:80'
+    # 通过文件读取环境变量
+    env_file:
+      - packages/react-app/.env
+    depends_on:
+      - platform
+    restart: unless-stopped
+    networks:
+      - dify-chat-network
+
+  # Platform 平台应用
+  platform:
+    build:
+      context: .
+      dockerfile: Dockerfile_platform
+    container_name: dify-chat-platform-self-deploy
+    ports:
+      - '5300:5300'
+    # 通过文件读取环境变量
+    env_file:
+      - packages/platform/.env
+    restart: unless-stopped
+    networks:
+      - dify-chat-network
+
+# 网络配置
+networks:
+  dify-chat-network:
+    driver: bridge
