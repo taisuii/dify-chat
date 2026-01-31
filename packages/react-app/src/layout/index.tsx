@@ -14,8 +14,8 @@ const RedirectWrapper = () => {
 	useEffect(() => {
 		const pathname = history.location.pathname
 
-		// /simple-chat 和 /widget-test 免登录，仅填 apiBase/apiKey 即可用
-		if (pathname === '/simple-chat' || pathname === '/widget-test') return
+		// /widget-test 免登录，仅填 apiBase/apiKey 即可用
+		if (pathname === '/widget-test') return
 
 		// 如果未登录，则跳转登录
 		if (!isAuthorized && pathname !== '/auth') {
