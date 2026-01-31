@@ -1,0 +1,1 @@
+export const PUBLIC_DIFY_PROXY_API_BASE = '/dify'

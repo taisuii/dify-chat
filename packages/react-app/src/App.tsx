@@ -8,6 +8,7 @@ import { BrowserRouter, type IRoute } from 'pure-react-router'
 import './App.css'
 import LayoutIndex from './layout'
 import SimpleChatPage from './pages/simple-chat'
+import WidgetTestPage from './pages/widget-test'
 import '@/libs/i18n'
 import { useTranslation } from 'react-i18next'
 
@@ -16,6 +17,7 @@ initResponsiveConfig()
 
 const routes: IRoute[] = [
 	{ path: '/simple-chat', component: () => <SimpleChatPage /> },
+	{ path: '/widget-test', component: () => <WidgetTestPage /> },
 ]
 
 /**
