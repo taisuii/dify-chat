@@ -5,6 +5,7 @@
 	"scripts": {
 		"build": "pnpm -r build",
 		"build:pkgs": "pnpm --filter @dify-chat/* build",
+		"pack:local": "node scripts/pack-packages.mjs",
 		"dev:showcase": "pnpm --filter dify-chat-widget-showcase dev",
 		"test": "pnpm -r test",
 		"changeset": "changeset",

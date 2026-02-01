@@ -4,9 +4,9 @@ import { theme as antdTheme, ConfigProvider } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
 import enUS from 'antd/es/locale/en_US'
 import { useTranslation } from 'react-i18next'
-
-import './App.css'
 import ShowcasePage from './pages/showcase'
+import './App.css'
+
 import '@/libs/i18n'
 
 initResponsiveConfig()
