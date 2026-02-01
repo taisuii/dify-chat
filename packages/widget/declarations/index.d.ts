@@ -1,0 +1,26 @@
+/**
+ * @dify-chat/widget 公开 API 类型声明
+ * 手写声明，供 tgz 发布使用；内部 TS 严格检查未全部通过时仍可提供类型提示。
+ */
+import type { ComponentType } from 'react'
+
+export interface DifyChatProps {
+	apiBase: string
+	apiKey: string
+	user?: string
+	/** 初始主题模式（非受控，仅在挂载时设置一次） */
+	initialTheme?: 'light' | 'dark' | 'system'
+	/** 初始语言（非受控，仅在挂载时设置一次） */
+	initialLanguage?: 'en' | 'zh'
+	/** 受控主题模式（外部可随时改变，组件会同步） */
+	theme?: 'light' | 'dark' | 'system'
+	/** 受控语言（外部可随时改变，组件会同步） */
+	language?: 'en' | 'zh'
+	/** 主题变化回调（组件内部切换时通知外部） */
+	onThemeChange?: (theme: 'light' | 'dark' | 'system') => void
+	/** 语言变化回调（组件内部切换时通知外部） */
+	onLanguageChange?: (language: 'en' | 'zh') => void
+	onError?: (error: Error) => void
+}
+
+export const DifyChat: ComponentType<DifyChatProps>

@@ -8,7 +8,23 @@ const tsconfigDevPath = path.resolve(__dirname, './tsconfig.json')
 const tsconfigProdPath = path.resolve(__dirname, './tsconfig.prod.json')
 
 export default defineConfig({
-	pluginReact: [pluginReact()],
+	pluginReact: [
+		pluginReact({
+			swcReactOptions: { runtime: 'automatic' },
+		}),
+	],
+	output: {
+		copy: [
+			{
+				from: './src/components/markdown-renderer/index.css',
+				to: 'components/markdown-renderer/index.css',
+			},
+			{
+				from: './declarations/index.d.ts',
+				to: 'index.d.ts',
+			},
+		],
+	},
 	lib: [
 		{
 			format: 'esm',

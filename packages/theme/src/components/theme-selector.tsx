@@ -1,7 +1,7 @@
 import { Dropdown } from 'antd'
 import { useThemeContext } from '../hooks'
 import { ThemeModeEnum, ThemeModeLabelEnum } from '../constants'
-import { DynamicIcon } from 'lucide-react/dynamic'
+import { Monitor, Moon, Sun } from 'lucide-react'
 
 interface IThemeSelectorProps {
 	children?: React.ReactNode
@@ -24,19 +24,19 @@ export default function ThemeSelector(props: IThemeSelectorProps) {
 						type: 'item',
 						key: ThemeModeEnum.SYSTEM,
 						label: ThemeModeLabelEnum.SYSTEM,
-						icon: <DynamicIcon name="screen-share" />,
+						icon: <Monitor />,
 					},
 					{
 						type: 'item',
 						key: ThemeModeEnum.LIGHT,
 						label: ThemeModeLabelEnum.LIGHT,
-						icon: <DynamicIcon name="sun" />,
+						icon: <Sun />,
 					},
 					{
 						type: 'item',
 						key: ThemeModeEnum.DARK,
 						label: ThemeModeLabelEnum.DARK,
-						icon: <DynamicIcon name="moon-star" />,
+						icon: <Moon />,
 					},
 				],
 				onClick: item => {

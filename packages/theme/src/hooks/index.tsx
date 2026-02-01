@@ -121,6 +121,11 @@ export const ThemeContextProvider = (props: { children: React.ReactNode }) => {
 }
 
 /**
+ * ThemeProvider 别名，与 ThemeContextProvider 等效，兼容文档中使用的命名
+ */
+export const ThemeProvider = ThemeContextProvider
+
+/**
  * 获取主题上下文 hook
  */
 export const useThemeContext = () => {

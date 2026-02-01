@@ -39,9 +39,9 @@
     "format": "biome format --write",
     "test": "vitest run"
   },
-	"dependencies": {
-		"@dify-chat/helpers": "workspace:^"
-	},
+  "dependencies": {
+    "@dify-chat/helpers": "^0.7.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@rslib/core": "catalog:",
