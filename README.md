@@ -8,20 +8,14 @@
 
 ## 快速开始
 
-使用 Docker Compose 启动 `Dify Chat` 是最便捷的方式。在执行以下命令前，请确保你的机器已安装 Docker 和 Docker Compose：
-
 ```shell
-# 创建项目目录并进入
-mkdir dify-chat && cd dify-chat
-# 下载 Docker Compose 文件
-curl -O https://raw.githubusercontent.com/lexmin0412/dify-chat/main/docker-compose.yml
-# 修改环境变量，主要是 DATABASE_URL
-nano docker-compose.yml
-# 启动服务
-docker compose up -d
+# 克隆项目并安装依赖
+pnpm install
+# 启动 DifyChat 展示页（开发模式）
+pnpm dev:showcase
 ```
 
-更多部署方式，详见 [官方文档](https://lexmin0412.github.io/dify-chat-docs/guide/deploy/docker-compose.html)。
+访问 http://localhost:5300/widget-showcase 查看 DifyChat 组件效果。在 `packages/widget-showcase/src/pages/showcase.tsx` 中配置 `apiBase`、`apiKey` 连接你的 Dify 应用。
 
 ## 相关链接
 
@@ -105,7 +99,7 @@ docker compose up -d
 - Ant Design v6
 - Ant Design X v1
 - Rsbuild v1
-- Tailwind CSS (v3 in react-app and v4 in platform)
+- Tailwind CSS
 - TypeScript v5
 
 ## 运行环境

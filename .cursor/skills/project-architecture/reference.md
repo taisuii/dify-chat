@@ -58,20 +58,6 @@
 | `src/types/` | 组件与业务类型 |
 | `src/utils/` | dify-api 封装与通用工具 |
 
-## packages/react-app
-
-| 路径 | 用途 |
-|------|------|
-| `src/index.tsx`、`src/App.tsx` | 应用入口与根组件 |
-| `src/pages/` | 页面（如 widget-test） |
-| `src/components/` | 与 widget 对应的聊天框、会话列表、布局、Markdown、消息发送、表单等（含 thought-chain 等扩展） |
-| `src/layout/` | 页面布局与 chat-layout-wrapper |
-| `src/hooks/` | use-auth、use-jump、use-latest、useX、use-map-4-arr 等 |
-| `src/services/` | 与后端/平台对接（如 app.ts） |
-| `src/store/`、`src/config/`、`src/constants/`、`src/utils/`、`src/libs/i18n.ts` | 状态、配置、常量、工具、i18n |
-| `src/theme/config.ts` | 主题配置 |
-| `rsbuild.config.ts` | Rsbuild 构建配置 |
-
 ## packages/widget-showcase
 
 | 路径 | 用途 |
@@ -86,9 +72,7 @@
 
 | 路径 | 用途 |
 |------|------|
-| `package.json` | 根脚本：build、dev:react、dev:platform、test、lint、format 等 |
+| `package.json` | 根脚本：build、dev:showcase、build:pkgs、test、lint、format 等 |
 | `pnpm-workspace.yaml` | workspace 与 catalog 定义 |
-| `docker-compose*.yml`、`Dockerfile_*` | Docker 部署 |
-| `scripts/` | 构建等脚本 |
 
 修改功能时：先根据 [SKILL.md](SKILL.md) 的「修改功能时如何选包」确定包，再在本 reference 中查该包下的具体文件。

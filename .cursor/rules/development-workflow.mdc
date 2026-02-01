@@ -32,6 +32,6 @@ alwaysApply: true
 
 ## 示例
 
-**开发前**：要改「会话列表」→ 查 SKILL.md 知会话列表在 widget 与 react-app 的 `conversation-list`；查 reference.md 知具体路径为 `packages/widget/src/components/conversation-list/` 等。
+**开发前**：要改「会话列表」→ 查 SKILL.md 知会话列表在 widget 的 `conversation-list`；查 reference.md 知具体路径为 `packages/widget/src/components/conversation-list/` 等。
 
 **大变动后**：新增了 `packages/analytics` 包 → 在 SKILL.md 增加该包说明与依赖关系，在 reference.md 增加该包目录与关键文件表。

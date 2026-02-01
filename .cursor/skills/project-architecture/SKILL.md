@@ -35,7 +35,7 @@ description: Documents Dify Chat Widget project architecture and module purposes
 
 ### 3. `packages/helpers` — @dify-chat/helpers
 
-**用途**: 通用工具，被 api、widget、react-app 等复用。
+**用途**: 通用工具，被 api、widget、widget-showcase 等复用。
 
 - **导出**: `base-request`、`id`、`gzip`、`localstorage`、`responsive`、`vars`
 - **维护要点**: 与业务无关的请求封装、ID 生成、压缩、本地存储、响应式、变量等放这里；避免在业务包内重复实现
@@ -59,18 +59,7 @@ description: Documents Dify Chat Widget project architecture and module purposes
   - `src/config/`、`src/constants/`、`src/enums/`、`src/hooks/`、`src/layout/`、`src/store/`、`src/utils/`、`src/libs/i18n.ts`
 - **维护要点**: 嵌入态 UI 与交互在此包；与 Dify API 的对接通过 `@dify-chat/api`，不直接写请求逻辑
 
-### 6. `packages/react-app` — dify-chat-app-react
-
-**用途**: 独立 Web 应用（完整站点的 React 前端），使用 Rsbuild 构建。
-
-- **入口**: `src/index.tsx` → `App.tsx`
-- **结构**:
-  - `src/pages/`: 页面级组件（如 widget-test）
-  - `src/components/`: 与 widget 类似的聊天框、会话列表、布局、Markdown、消息发送等（可复用或区别于 widget）
-  - `src/layout/`、`src/hooks/`、`src/store/`、`src/services/`、`src/utils/`、`src/config/`、`src/libs/i18n.ts`
-- **维护要点**: 全站路由、页面、与后端/平台的集成在此；和 widget 共用的逻辑尽量放在 `widget` 或 `api/core/helpers/theme`
-
-### 7. `packages/widget-showcase` — dify-chat-widget-showcase
+### 6. `packages/widget-showcase` — dify-chat-widget-showcase
 
 **用途**: 专门用于展示 DifyChat 组件的使用效果，结构简洁，无登录与路由，适合快速预览与演示。
 
@@ -81,7 +70,7 @@ description: Documents Dify Chat Widget project architecture and module purposes
 ## 依赖关系（高层）
 
 ```
-react-app / widget-showcase / 第三方页面
+widget-showcase / 第三方页面
     → widget（可选，嵌入聊天）
     → api, core, helpers, theme
 api → helpers（如 base-request）
@@ -96,7 +85,6 @@ widget → api, core, helpers, theme
 | 应用/对话等全局状态与上下文 | `packages/core` |
 | 主题模式、主题切换 UI | `packages/theme` |
 | 嵌入聊天 UI、消息展示、输入区 | `packages/widget` |
-| 独立站点页面、路由、平台对接 | `packages/react-app` |
 | 展示 DifyChat 组件使用效果 | `packages/widget-showcase` |
 | 通用工具（ID、存储、请求封装等） | `packages/helpers` |
 
