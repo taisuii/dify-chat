@@ -1,4 +1,3 @@
-import { initResponsiveConfig } from '@dify-chat/helpers'
 import { useThemeContext } from '@dify-chat/theme'
 import { theme as antdTheme, ConfigProvider } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
@@ -8,8 +7,6 @@ import ShowcasePage from './pages/showcase'
 import './App.css'
 
 import '@/libs/i18n'
-
-initResponsiveConfig()
 
 /**
  * DifyChat Widget Showcase - 展示 DifyChat 组件的使用效果
