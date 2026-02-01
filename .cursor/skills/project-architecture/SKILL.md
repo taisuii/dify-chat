@@ -9,8 +9,11 @@ description: Documents Dify Chat Widget project architecture and module purposes
 
 ## 项目概览
 
-- **技术栈**: pnpm monorepo，React 19，TypeScript，Rsbuild / Rslib
-- **根命令**: `pnpm build` 全量构建，`pnpm build:pkgs` 仅构建 `@dify-chat/*` 包
+- **技术栈**: pnpm monorepo，React 18+（兼容 React 19），TypeScript，Rsbuild / Rslib
+- **根命令**: 
+  - `pnpm build` 全量构建
+  - `pnpm build:pkgs` 仅构建 `@dify-chat/*` 包
+  - `pnpm pack:local` 打包成 npm 可安装的 .tgz 文件
 - **运行环境**: Node.js ^22.21.1，pnpm ^10.8.1
 
 ## 包与模块职责
@@ -61,20 +64,42 @@ description: Documents Dify Chat Widget project architecture and module purposes
 
 ### 6. `packages/widget-showcase` — dify-chat-widget-showcase
 
-**用途**: 专门用于展示 DifyChat 组件的使用效果，结构简洁，无登录与路由，适合快速预览与演示。
+**用途**: 展示 DifyChat 组件的真实接入示例，**仅保留必需依赖**，反映实际项目集成时的最小依赖要求。
 
 - **入口**: `src/index.tsx` → `App.tsx` → `ShowcasePage`
 - **结构**: `src/pages/showcase.tsx` 直接渲染 `DifyChat`，`src/libs/i18n.ts` 提供国际化
-- **维护要点**: 保持最小依赖与单页展示；API 配置可在 `showcase.tsx` 或环境变量中调整
+- **依赖**: 仅依赖 `@dify-chat/widget`、`@dify-chat/theme`、`antd`、`react`、`react-dom`、`react-i18next` 及相关 i18n 库
+- **维护要点**: 
+  - **保持最小依赖**：不添加 widget 内部已包含的依赖（如 mermaid、katex、echarts 等）
+  - 单页展示，无路由
+  - API 配置在 `showcase.tsx` 中调整
 
-## 依赖关系（高层）
+## 依赖关系
 
 ```
-widget-showcase / 第三方页面
-    → widget（可选，嵌入聊天）
-    → api, core, helpers, theme
-api → helpers（如 base-request）
-widget → api, core, helpers, theme
+┌─────────────────────────────────────────────────────────┐
+│                      widget                              │
+│         (依赖 api, core, helpers, theme)                 │
+└─────────────────────────────────────────────────────────┘
+                          │
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+     ┌─────────┐    ┌─────────┐    ┌─────────┐
+     │   api   │    │  theme  │    │  core   │
+     │(依赖    │    │(依赖    │    │(依赖    │
+     │core,    │    │helpers) │    │helpers) │
+     │helpers) │    └─────────┘    └─────────┘
+     └─────────┘          │               │
+          │               └───────┬───────┘
+          │                       ▼
+          │               ┌─────────────┐
+          └──────────────►│   helpers   │
+                          │  (无依赖)   │
+                          └─────────────┘
+
+widget-showcase / 第三方项目
+    → 仅需安装 widget + theme
+    → 其他包 (api, core, helpers) 作为 widget 的依赖自动安装
 ```
 
 ## 修改功能时如何选包
