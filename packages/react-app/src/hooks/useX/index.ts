@@ -48,6 +48,9 @@ export const useX = (options: {
 	const [agent] = useXAgent<IAgentMessage>({
 		request: async ({ message }, { onSuccess, onUpdate, onError }) => {
 			const inputs = message?.inputs || entryForm.getFieldsValue() || {}
+			// user 必填：优先用 useAuth（登录态），否则用 DifyChat 传入的 user（difyApi.options）
+			const userToSend =
+				user || (latestProps.current.difyApi as { options?: { user?: string } })?.options?.user
 			// 发送消息
 			const response = await latestProps.current.difyApi!.sendMessage({
 				inputs,
@@ -55,7 +58,7 @@ export const useX = (options: {
 					? latestProps.current.conversationId
 					: undefined,
 				files: filesRef.current || [],
-				user,
+				user: userToSend,
 				response_mode: RESPONSE_MODE,
 				query: message?.content as string,
 			})
@@ -67,7 +70,20 @@ export const useX = (options: {
 
 			// 异常 => 结束
 			if (response.status !== 200) {
-				const errText = response.statusText || '请求对话接口失败'
+				let errText = response.statusText || '请求对话接口失败'
+				try {
+					const errBody = await response.clone().json().catch(() => null)
+					if (errBody?.message) errText = errBody.message
+				} catch {
+					// 忽略解析错误
+				}
+				if (response.status === 401) {
+					errText = `认证失败(401): ${errText}，请检查 API Key 或登录状态`
+				} else if (response.status === 403) {
+					errText = `无权限(403): ${errText}，请检查 API Key 是否有效`
+				} else if (response.status >= 400) {
+					errText = `请求失败(${response.status}): ${errText}`
+				}
 				antdMessage.error(errText)
 				// 打断输出
 				abortRef.current = () => {

@@ -1,0 +1,32 @@
+---
+description: 开发前阅读项目架构，大改动后同步更新架构文档
+alwaysApply: true
+---
+
+# 开发流程规则
+
+## 开发前
+
+- **必须先阅读项目架构**：在改代码前，查阅 `.cursor/skills/project-architecture/SKILL.md` 与 `.cursor/skills/project-architecture/reference.md`，确认：
+  - 要改的功能属于哪个包/模块
+  - 该模块的职责和依赖关系
+  - 相关入口与关键文件位置
+- 不确定归属时，按 SKILL.md 中「修改功能时如何选包」表选择目标包，再在 reference.md 中查具体文件。
+
+## 修改后
+
+- **评估是否属于「较大变动」**：例如：
+  - 新增或删除包
+  - 新增/删除模块或显著调整某包内目录结构
+  - 包之间依赖关系变化
+  - 某模块职责发生明显变化
+- **若属于较大变动，必须同步更新项目架构**：
+  - 更新 `.cursor/skills/project-architecture/SKILL.md`：包职责、依赖关系、选包表
+  - 更新 `.cursor/skills/project-architecture/reference.md`：受影响包下的目录与文件说明
+- 小范围修 bug、改样式、单文件逻辑调整通常无需改架构文档；有疑问时以「是否影响他人找模块/文件」为准。
+
+## 示例
+
+**开发前**：要改「会话列表」→ 查 SKILL.md 知会话列表在 widget 与 react-app 的 `conversation-list`；查 reference.md 知具体路径为 `packages/widget/src/components/conversation-list/` 等。
+
+**大变动后**：新增了 `packages/analytics` 包 → 在 SKILL.md 增加该包说明与依赖关系，在 reference.md 增加该包目录与关键文件表。
