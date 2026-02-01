@@ -4,7 +4,8 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { usePrevious } from 'ahooks'
 import { Radio } from 'antd'
 import mermaid from 'mermaid'
-import React, { useEffect, useEffectEvent, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useEffectEvent } from '../../../hooks'
 
 export function cleanUpSvgCode(svgCode: string): string {
 	return svgCode.replaceAll('<br>', '<br/>')

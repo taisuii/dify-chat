@@ -26,7 +26,8 @@ import {
 } from 'antd'
 import dayjs from 'dayjs'
 import { useSearchParams } from 'pure-react-router'
-import React, { useEffect, useEffectEvent, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useEffectEvent } from '../hooks'
 
 import { AppIcon, AppInfo, ConversationList, HeaderLayout, LucideIcon } from '../components'
 import I18nSwitcher from '../components/i18n-switcher'
