@@ -11,16 +11,12 @@
 		"pack:dev": "node scripts/run-pack-dev.mjs",
 		"dev:showcase": "pnpm --filter dify-chat-widget-showcase dev",
 		"test": "pnpm -r test",
-		"changeset": "changeset",
-		"version-packages": "changeset version",
-		"release": "pnpm build && changeset publish",
 		"lint": "oxlint",
 		"lint:fix": "oxlint --fix",
 		"format": "oxfmt",
 		"format:check": "oxfmt --check"
 	},
 	"devDependencies": {
-		"@changesets/cli": "catalog:",
 		"@eslint/compat": "catalog:",
 		"@eslint/js": "catalog:",
 		"@trivago/prettier-plugin-sort-imports": "catalog:",

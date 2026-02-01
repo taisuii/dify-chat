@@ -76,14 +76,16 @@ function packPackage(packageName) {
 		fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2))
 	}
 
-	// 移动 tgz 到 outputDir
-	const tgzName = `${pkg.name.replace('@', '').replace('/', '-')}-${pkg.version}.tgz`
+	// 移动 tgz 到 outputDir，命名为 *-latest.tgz
+	const baseName = pkg.name.replace('@', '').replace('/', '-')
+	const tgzName = `${baseName}-${pkg.version}.tgz`
+	const latestName = `${baseName}-latest.tgz`
 	const tgzSrc = path.join(pkgDir, tgzName)
-	const tgzDest = path.join(outputDir, tgzName)
+	const latestDest = path.join(outputDir, latestName)
 	if (fs.existsSync(tgzSrc)) {
-		fs.renameSync(tgzSrc, tgzDest)
-		console.log(`  ✓ ${tgzName}`)
-		return tgzName
+		fs.renameSync(tgzSrc, latestDest)
+		console.log(`  ✓ ${latestName}`)
+		return latestName
 	}
 	return null
 }
