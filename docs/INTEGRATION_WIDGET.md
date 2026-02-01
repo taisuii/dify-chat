@@ -52,7 +52,7 @@ pnpm add ./path/to/dify-chat-widget/dist-packages/*.tgz
 
 ## 二、Create React App + Webpack 5 兼容
 
-若使用**含本次修复**的 `@dify-chat/theme`（已改为从 `lucide-react` 主入口导入图标，不再使用 `lucide-react/dynamic`），在 CRA（react-scripts 5.x）下一般可开箱构建，无需 CRACO。
+若使用**含本次修复**的 tgz（theme 已改为从 `lucide-react` 主入口导入图标；widget 已对 `react-syntax-highlighter` 样式使用带 `.js` 扩展的路径），在 CRA（react-scripts 5.x）下一般可开箱构建，无需 CRACO。
 
 若仍遇到类似错误：
 
@@ -61,7 +61,14 @@ Can't resolve 'lucide-react/dynamic' in '.../node_modules/@dify-chat/theme/dist/
 The request failed to resolve only because it was resolved as fully specified
 ```
 
-说明使用的是旧版 theme 包，可升级到最新 tgz，或按以下方式用 CRACO 关闭 `fullySpecified`：
+或：
+
+```
+Can't resolve 'react-syntax-highlighter/dist/esm/styles/hljs' in '.../node_modules/@dify-chat/widget/dist/components/markdown-renderer'
+The request failed to resolve only because it was resolved as fully specified
+```
+
+说明使用的是旧版 theme/widget 包，可升级到最新 tgz，或按以下方式用 CRACO 关闭 `fullySpecified`：
 
 1. 安装 CRACO：
 

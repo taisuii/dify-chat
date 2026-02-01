@@ -20,6 +20,10 @@ export default defineConfig({
 				to: 'components/markdown-renderer/index.css',
 			},
 			{
+				from: './src/theme-default.css',
+				to: 'theme-default.css',
+			},
+			{
 				from: './declarations/index.d.ts',
 				to: 'index.d.ts',
 			},

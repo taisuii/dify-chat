@@ -477,8 +477,8 @@ export default function ChatLayout(props: IChatLayoutProps) {
 													onAddConversation()
 												}}
 												type="default"
-												className="mx-4 mt-3 h-10 rounded-lg border border-solid border-gray-200 leading-10 text-theme-text"
-												icon={<PlusOutlined className="" />}
+												className="mx-4 mt-3 h-10 rounded-lg border border-solid border-theme-border bg-theme-btn-bg !text-theme-text leading-10"
+												icon={<PlusOutlined className="!text-theme-text" />}
 											>
 												{t('chat.new_chat')}
 											</Button>

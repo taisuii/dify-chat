@@ -26,7 +26,8 @@
       "source": "./src/index.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./theme-default.css": "./dist/theme-default.css"
   },
   "publishConfig": {
     "access": "public",

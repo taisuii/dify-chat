@@ -64,6 +64,15 @@
 
 ---
 
+### 步骤 3.1：react-syntax-highlighter 子路径 → 带扩展的完全路径（避免 fullySpecified）
+
+- **问题**：CRA 构建报 `Can't resolve 'react-syntax-highlighter/dist/esm/styles/hljs' ... resolved as fully specified`。
+- **原因**：widget 的 markdown-renderer 使用无扩展子路径 `react-syntax-highlighter/dist/esm/styles/hljs`，Webpack 5 对 ESM 要求完全限定请求（含扩展名）。
+- **做法**：在 **packages/widget/src/components/markdown-renderer/index.tsx** 中，将样式导入改为带扩展的完全路径（该包中 `hljs` 为目录，入口为 `index.js`）：`from 'react-syntax-highlighter/dist/esm/styles/hljs/index.js'`。
+- **涉及**：`packages/widget/src/components/markdown-renderer/index.tsx`。
+
+---
+
 ### 步骤 4：类型声明（widget 手写 .d.ts）
 
 - **问题**：消费者报 `Could not find a declaration file for module '@dify-chat/widget'`。

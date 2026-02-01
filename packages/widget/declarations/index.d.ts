@@ -3,6 +3,7 @@
  * 手写声明，供 tgz 发布使用；内部 TS 严格检查未全部通过时仍可提供类型提示。
  */
 import type { ComponentType } from 'react'
+import type { i18n } from 'i18next'
 
 export interface DifyChatProps {
 	apiBase: string
@@ -24,3 +25,11 @@ export interface DifyChatProps {
 }
 
 export const DifyChat: ComponentType<DifyChatProps>
+
+/** 将 Widget 内置文案注入到指定 i18n 实例；接入方在 i18n init 完成后调用。 */
+export function addDifyChatI18n(instance?: i18n): void
+
+/** Widget 内置英文文案（可合并到自定义 i18n） */
+export const enResources: Record<string, unknown>
+/** Widget 内置中文文案（可合并到自定义 i18n） */
+export const zhResources: Record<string, unknown>

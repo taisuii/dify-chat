@@ -1,4 +1,4 @@
-﻿import { CloudUploadOutlined, LinkOutlined } from '@ant-design/icons'
+import { CloudUploadOutlined, LinkOutlined } from '@ant-design/icons'
 import { Attachments, AttachmentsProps, Sender } from '@ant-design/x'
 import { IFile } from '@dify-chat/api'
 import { useAppContext, useConversationsContext } from '@dify-chat/core'
@@ -164,6 +164,8 @@ export const MessageSender = (props: IMessageSenderProps) => {
 			styles={{
 				content: {
 					padding: 0,
+					background: 'var(--theme-main-bg-color)',
+					color: 'var(--theme-text-color)',
 				},
 			}}
 		>
@@ -189,10 +191,12 @@ export const MessageSender = (props: IMessageSenderProps) => {
 								title: 'Drop file here',
 							}
 						: {
-								icon: <CloudUploadOutlined />,
-								title: '点击或拖拽文件到此区域上传',
+								icon: <CloudUploadOutlined className="!text-theme-desc" />,
+								title: (
+									<span className="text-theme-text">点击或拖拽文件到此区域上传</span>
+								),
 								description: (
-									<div>
+									<div className="text-theme-desc">
 										支持的文件类型：
 										{allowedFileTypes.join(', ')}
 									</div>
@@ -284,11 +288,13 @@ export const MessageSender = (props: IMessageSenderProps) => {
 			onChange={onChange}
 			prefix={
 				enableFileUpload ? (
-					// 附件上传按钮
+					// 附件上传按钮（深色下需主题色保证可见）
 					<Badge dot={files.length > 0 && !open}>
 						<Button
+							type="text"
 							onClick={() => setOpen(!open)}
-							icon={<LinkOutlined className="text-theme-text" />}
+							className="!text-theme-text hover:!bg-theme-btn-bg"
+							icon={<LinkOutlined className="!text-theme-text" />}
 						/>
 					</Badge>
 				) : null

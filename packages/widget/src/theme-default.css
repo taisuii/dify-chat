@@ -1,0 +1,35 @@
+/**
+ * Widget 内置默认主题变量（可选引入）
+ * 接入方若不想自己写 CSS 变量，可在入口 CSS 中 import 此文件：
+ *   import '@dify-chat/widget/theme-default.css';
+ * 注意：仍需在宿主项目中配置 Tailwind（content 含 widget dist、theme 扩展主题色）。
+ */
+:root {
+	--theme-text-color: #333;
+	--theme-desc-color: #898989;
+	--theme-bg-color: #f2f4f7;
+	--theme-btn-bg-color: #fff;
+	--theme-main-bg-color: #fff;
+	--theme-border-color: #eff0f5;
+	--theme-splitter-color: #eff0f5;
+	--theme-button-border-color: #c9c9c9;
+	--theme-primary-color: #1669ee;
+	--theme-success-color: #52c41a;
+	--theme-warning-color: #faad14;
+	--theme-danger-color: #ff4d4f;
+	--theme-bubble-bg-color: #f2f4f7;
+	--theme-code-block-bg-color: #fff;
+}
+
+.dark {
+	--theme-text-color: #c9c9c9;
+	--theme-desc-color: #aaa;
+	--theme-bg-color: #000;
+	--theme-btn-bg-color: #333;
+	--theme-main-bg-color: #222;
+	--theme-border-color: #797979;
+	--theme-splitter-color: #55555555;
+	--theme-button-border-color: #c9c9c9;
+	--theme-bubble-bg-color: #424242;
+	--theme-code-block-bg-color: #222;
+}

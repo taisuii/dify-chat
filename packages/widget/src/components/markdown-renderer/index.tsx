@@ -9,7 +9,7 @@ import { flow } from 'lodash-es'
 import React, { AnchorHTMLAttributes, Component, memo, useMemo, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs/index.js'
 import RehypeKatex from 'rehype-katex'
 import RehypeRaw from 'rehype-raw'
 import RemarkBreaks from 'remark-breaks'
@@ -203,14 +203,14 @@ const CodeBlock = memo(({ inline, className, children, ...props }: ICodeBlockPro
 							setIsSVG={setIsSVG}
 						/>
 					)}
-					<Tooltip title="复制代码">
+					<Tooltip title="å¤å¶ä»£ç ">
 						<div className="inline-flex items-center rounded p-1 hover:bg-gray-100">
 							<LucideIcon
 								className="cursor-pointer"
 								name="copy"
 								onClick={async () => {
 									await copyToClipboard(String(children).replace(/\n$/, ''))
-									message.success('复制成功')
+									message.success('å¤å¶æå')
 								}}
 							/>
 						</div>
@@ -230,7 +230,7 @@ interface IScriptBlockProps {
 const ScriptBlock = memo((props: IScriptBlockProps) => {
 	const { node } = props
 	const firstChild = node.children[0]
-	// @ts-expect-error FIXME: 类型错误待解�?	const scriptContent = firstChild?.value || ''
+	// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?	const scriptContent = firstChild?.value || ''
 	return `<script>${scriptContent}</script>`
 })
 ScriptBlock.displayName = 'ScriptBlock'
@@ -273,7 +273,7 @@ const Link = ({ node, ...props }: ILinkProps) => {
 			target="_blank"
 			className="!decoration-primary-700 cursor-pointer px-1 underline decoration-dashed"
 		>
-			{/* @ts-expect-error FIXME: 类型错误待解�?*/}
+			{/* @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?*/}
 			{firstChild ? firstChild?.value : 'Download'}
 		</a>
 	)
@@ -294,16 +294,16 @@ export function MarkdownRenderer(props: {
 	const { markdownText = '', onSubmit } = props
 
 	/**
-	 * 最终用于渲染的 markdown 文本
+	 * æç»ç¨äºæ¸²æç markdown ææ¬
 	 */
 	const text4Render = useMemo(() => {
 		let result = markdownText || ''
-		// 正则匹配所�?markdown 图片转为 img 标签，保�?src/alt 属�?		// 这种处理是为了解�?markdownText 以一�?md 图片开始（�? `![alt](url)`）时，图片无法展示的问题
+		// æ­£åå¹éæï¿½?markdown å¾çè½¬ä¸º img æ ç­¾ï¼ä¿ï¿½?src/alt å±ï¿½?		// è¿ç§å¤çæ¯ä¸ºäºè§£ï¿½?markdownText ä»¥ä¸ï¿½?md å¾çå¼å§ï¼ï¿½? `![alt](url)`ï¼æ¶ï¼å¾çæ æ³å±ç¤ºçé®é¢
 		result = result?.replace(/!\[([^\]]*)\]\(([^)]*)\)/g, (match, alt, src) => {
 			return `<img src="${src}" alt="${alt}" />`
 		})
 		result = flow([preprocessThinkTag, preprocessLaTeX])(result)
-		// 如果是以图片标签开头，则加一�?p
+		// å¦ææ¯ä»¥å¾çæ ç­¾å¼å¤´ï¼åå ä¸ï¿½?p
 		return result
 	}, [markdownText])
 
@@ -335,10 +335,10 @@ export function MarkdownRenderer(props: {
 
 								if ('children' in node) {
 									const parentNode = node as Root | Element
-									// @ts-expect-error FIXME: 类型错误待解�?									parentNode.children.forEach(iterate)
+									// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?									parentNode.children.forEach(iterate)
 								}
 							}
-							// @ts-expect-error FIXME: 类型错误待解�?							tree.children.forEach(iterate)
+							// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?							tree.children.forEach(iterate)
 						}
 					},
 				]}
@@ -353,9 +353,9 @@ export function MarkdownRenderer(props: {
 					...(props.customDisallowedElements || []),
 				]}
 				components={{
-					// @ts-expect-error FIXME: 类型错误待解�?					code: CodeBlock,
-					// @ts-expect-error FIXME: 类型错误待解�?					a: Link,
-					// @ts-expect-error FIXME: 类型错误待解�?					p: Paragraph,
+					// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?					code: CodeBlock,
+					// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?					a: Link,
+					// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?					p: Paragraph,
 					form: props => (
 						<MarkdownForm
 							{...props}
@@ -364,10 +364,10 @@ export function MarkdownRenderer(props: {
 							}}
 						/>
 					),
-					// @ts-expect-error FIXME: 类型错误待解�?					script: ScriptBlock,
+					// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?					script: ScriptBlock,
 					details: ThinkBlock,
-					// @ts-expect-error FIXME: 类型错误待解�?					img: ImageBlock,
-					// @ts-expect-error FIXME: 类型错误待解�?					video: VideoBlock,
+					// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?					img: ImageBlock,
+					// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?					video: VideoBlock,
 					button: props => {
 						return (
 							<ButtonBlock
@@ -402,7 +402,7 @@ class ErrorBoundary extends Component {
 	}
 
 	render() {
-		// @ts-expect-error FIXME: 类型错误待解�?		if (this.state.hasError)
+		// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?		if (this.state.hasError)
 			return (
 				<div>
 					Oops! An error occurred. This could be due to an ECharts runtime error or invalid SVG
@@ -410,6 +410,6 @@ class ErrorBoundary extends Component {
 					(see the browser console for more information)
 				</div>
 			)
-		// @ts-expect-error FIXME: 类型错误待解�?		return this.props.children
+		// @ts-expect-error FIXME: ç±»åéè¯¯å¾è§£ï¿½?		return this.props.children
 	}
 }
