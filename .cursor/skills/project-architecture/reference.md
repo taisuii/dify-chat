@@ -72,6 +72,16 @@
 | `src/theme/config.ts` | 主题配置 |
 | `rsbuild.config.ts` | Rsbuild 构建配置 |
 
+## packages/widget-showcase
+
+| 路径 | 用途 |
+|------|------|
+| `src/index.tsx`、`src/App.tsx` | 应用入口与根组件 |
+| `src/pages/showcase.tsx` | 展示 DifyChat 组件使用效果的页面 |
+| `src/libs/i18n.ts` | 国际化 |
+| `src/App.css` | 主题变量与基础样式 |
+| `rsbuild.config.ts` | Rsbuild 构建配置 |
+
 ## 根目录
 
 | 路径 | 用途 |
