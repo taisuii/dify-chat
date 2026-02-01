@@ -145,6 +145,8 @@ function App() {
 
 若满足上述条件仍无法构建，请提 issue 并附报错与版本信息。
 
+**从问题到修复的完整流程**：若想了解「打包后对接失败」到「tgz 可跑可看」的一步步修复过程（子依赖、运行时依赖、lucide-react、类型、React 注入、Tailwind 等），可参阅 [PACK_AND_CONSUMER_FIX_FLOW.md](./PACK_AND_CONSUMER_FIX_FLOW.md)。
+
 ## 七、发布前验证（npm pack + 真实安装测试）
 
 在发布或交付 tgz 前，建议在仓库内跑一遍「打包 → 用 tgz 安装 → 构建」的验证，可提前暴露缺失依赖、类型、产物等问题。
