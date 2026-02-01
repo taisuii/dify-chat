@@ -26,13 +26,14 @@ const fixtureDir = path.join(rootDir, 'fixtures', 'tgz-consumer')
 /**
  * 从 tgz 文件名解析出 npm 包名
  * 例: dify-chat-widget-0.1.0.tgz -> @dify-chat/widget
+ * 例: dify-chat-widget-latest.tgz -> @dify-chat/widget
  */
 function tgzNameToPackageName(tgzName) {
   const base = tgzName.replace(/\.tgz$/, '')
   const lastDash = base.lastIndexOf('-')
   if (lastDash === -1) return null
   const versionPart = base.slice(lastDash + 1)
-  if (!/^\d+\.\d+\.\d+/.test(versionPart)) return null
+  if (!/^(\d+\.\d+\.\d+|latest)$/.test(versionPart)) return null
   const namePart = base.slice(0, lastDash)
   if (!namePart.startsWith('dify-chat-')) return null
   const subName = namePart.slice('dify-chat-'.length)

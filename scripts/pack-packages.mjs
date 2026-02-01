@@ -6,7 +6,7 @@
  *   pnpm run pack:local
  *
  * 在其他项目中安装：
- *   pnpm add ./path/to/dify-chat-widget/dist-packages/*.tgz
+ *   pnpm add ./path/to/dify-chat/dist-packages/*.tgz
  *   或依次安装各个 tgz 文件
  */
 import { execSync } from 'node:child_process'
@@ -117,11 +117,11 @@ async function main() {
 
 	console.log(`\nDone! Tarballs saved to dist-packages/\n`)
 	console.log('在其他项目中安装（需一次性安装所有包）：')
-	console.log('  pnpm add ./path/to/dify-chat-widget/dist-packages/*.tgz')
+	console.log('  pnpm add ./path/to/dify-chat/dist-packages/*.tgz')
 	console.log('\n从本地 tgz 安装时若遇子依赖解析失败，请参考 docs/INTEGRATION_WIDGET.md 配置 pnpm overrides。')
 	console.log('\n或使用本地路径（开发时推荐）：')
-	console.log('  pnpm add ./path/to/dify-chat-widget/packages/widget')
-	console.log('  （需在 dify-chat-widget 目录下先执行 pnpm install）')
+	console.log('  pnpm add ./path/to/dify-chat/packages/widget')
+	console.log('  （需在 dify-chat 目录下先执行 pnpm install）')
 }
 
 main().catch((err) => {

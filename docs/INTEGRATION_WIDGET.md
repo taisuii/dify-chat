@@ -1,6 +1,6 @@
 # DifyChat Widget 集成指南
 
-本文档说明如何在 React 项目中集成 `@dify-chat/widget`，包括从本地 tgz 安装、CRA/Webpack 5 兼容配置等场景。
+本文档说明如何在 React 项目中集成 `@dify-chat/widget`，包括从 GitHub 或本地 tgz 安装、CRA/Webpack 5 兼容配置等场景。
 
 ## 为什么本地测试没问题、打包后使用出问题？
 
@@ -14,39 +14,51 @@
 
 本仓库已针对上述问题做修复，并在此文档中说明兼容方式与验收标准。
 
-## 一、从本地 tgz 安装（未发布到 npm 时）
+## 一、安装方式
 
-当使用 `pnpm run pack:local` 打包后，需要从 `dist-packages/` 目录安装时，由于 widget 依赖的 `@dify-chat/helpers`、`@dify-chat/core`、`@dify-chat/api`、`@dify-chat/theme` 未发布到 npm registry，pnpm 会尝试从 registry 解析并报错 `No matching version found`。
+### 方式 A：从 GitHub 安装（推荐）
 
-### 解决方案：配置 pnpm overrides
+从 [taisuii/dify-chat](https://github.com/taisuii/dify-chat) 的 `dist-packages/` 直接安装 `*-latest.tgz`，一次性安装全部 5 个包：
 
-在**消费者项目**的 `package.json` 中添加 `pnpm.overrides`，将 `@dify-chat/*` 全部指向本地 tgz：
+```bash
+pnpm add https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-helpers-latest.tgz \
+         https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-core-latest.tgz \
+         https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-api-latest.tgz \
+         https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-theme-latest.tgz \
+         https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-widget-latest.tgz
+```
+
+### 方式 B：从本地 tgz 安装（私有部署 / 离线）
+
+当使用 `pnpm run pack:local` 打包后，需要从 `dist-packages/` 目录安装时，一次性安装所有 tgz：
+
+```bash
+pnpm add ./path/to/dify-chat/dist-packages/dify-chat-helpers-latest.tgz \
+         ./path/to/dify-chat/dist-packages/dify-chat-core-latest.tgz \
+         ./path/to/dify-chat/dist-packages/dify-chat-api-latest.tgz \
+         ./path/to/dify-chat/dist-packages/dify-chat-theme-latest.tgz \
+         ./path/to/dify-chat/dist-packages/dify-chat-widget-latest.tgz
+```
+
+### 方式 C：仅安装 widget + overrides（需先装其他包）
+
+若只能先装 widget 再补装，需在 `package.json` 中配置 `pnpm.overrides`，将 `@dify-chat/*` 全部指向对应 tgz：
 
 ```json
 {
   "pnpm": {
     "overrides": {
-      "@dify-chat/helpers": "file:./path/to/dify-chat-widget/dist-packages/dify-chat-helpers-0.7.0.tgz",
-      "@dify-chat/core": "file:./path/to/dify-chat-widget/dist-packages/dify-chat-core-0.7.0.tgz",
-      "@dify-chat/api": "file:./path/to/dify-chat-widget/dist-packages/dify-chat-api-0.7.0.tgz",
-      "@dify-chat/theme": "file:./path/to/dify-chat-widget/dist-packages/dify-chat-theme-0.7.0.tgz",
-      "@dify-chat/widget": "file:./path/to/dify-chat-widget/dist-packages/dify-chat-widget-0.1.0.tgz"
+      "@dify-chat/helpers": "https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-helpers-latest.tgz",
+      "@dify-chat/core": "https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-core-latest.tgz",
+      "@dify-chat/api": "https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-api-latest.tgz",
+      "@dify-chat/theme": "https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-theme-latest.tgz",
+      "@dify-chat/widget": "https://github.com/taisuii/dify-chat/raw/main/dist-packages/dify-chat-widget-latest.tgz"
     }
   }
 }
 ```
 
-然后执行：
-
-```bash
-pnpm add @dify-chat/widget
-```
-
-或一次性安装所有 tgz（无需 overrides，但需保证相对路径正确）：
-
-```bash
-pnpm add ./path/to/dify-chat-widget/dist-packages/*.tgz
-```
+然后执行 `pnpm add @dify-chat/widget`。
 
 ---
 
@@ -148,7 +160,7 @@ function App() {
 - 包管理：pnpm  
 - 脚手架：Create React App (react-scripts 5.x)  
 - React：18.x  
-- 安装：从 `dist-packages/*.tgz` 安装，并按「一、从本地 tgz 安装」配置 overrides  
+- 安装：从 `dist-packages/*.tgz` 或 GitHub 安装，并按「一、安装方式」配置  
 
 若满足上述条件仍无法构建，请提 issue 并附报错与版本信息。
 

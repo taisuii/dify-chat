@@ -28,11 +28,11 @@
   },
   "pnpm": {
     "overrides": {
-      "@dify-chat/api": "file:../../dist-packages/dify-chat-api-0.7.0.tgz",
-      "@dify-chat/core": "file:../../dist-packages/dify-chat-core-0.7.0.tgz",
-      "@dify-chat/helpers": "file:../../dist-packages/dify-chat-helpers-0.7.0.tgz",
-      "@dify-chat/theme": "file:../../dist-packages/dify-chat-theme-0.7.0.tgz",
-      "@dify-chat/widget": "file:../../dist-packages/dify-chat-widget-0.1.0.tgz"
+      "@dify-chat/api": "file:../../dist-packages/dify-chat-api-latest.tgz",
+      "@dify-chat/core": "file:../../dist-packages/dify-chat-core-latest.tgz",
+      "@dify-chat/helpers": "file:../../dist-packages/dify-chat-helpers-latest.tgz",
+      "@dify-chat/theme": "file:../../dist-packages/dify-chat-theme-latest.tgz",
+      "@dify-chat/widget": "file:../../dist-packages/dify-chat-widget-latest.tgz"
     }
   }
 }

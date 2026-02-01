@@ -23,7 +23,7 @@ function tgzNameToPackageName(tgzName) {
   const lastDash = base.lastIndexOf('-')
   if (lastDash === -1) return null
   const versionPart = base.slice(lastDash + 1)
-  if (!/^\d+\.\d+\.\d+/.test(versionPart)) return null
+  if (!/^(\d+\.\d+\.\d+|latest)$/.test(versionPart)) return null
   const namePart = base.slice(0, lastDash)
   if (!namePart.startsWith('dify-chat-')) return null
   const subName = namePart.slice('dify-chat-'.length)
