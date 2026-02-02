@@ -39,7 +39,10 @@ function main() {
     }
   }
 
-  const tgzFiles = fs.existsSync(outputDir) ? fs.readdirSync(outputDir).filter((f) => f.endsWith('.tgz')) : []
+  // 优先使用 *-latest.tgz，确保每个包只取一个 override
+  const allTgz = fs.existsSync(outputDir) ? fs.readdirSync(outputDir).filter((f) => f.endsWith('.tgz')) : []
+  const latestTgz = allTgz.filter((f) => f.endsWith('-latest.tgz'))
+  const tgzFiles = latestTgz.length > 0 ? latestTgz : allTgz
   if (tgzFiles.length === 0) {
     console.error('请先执行: pnpm run pack:local')
     process.exit(1)
