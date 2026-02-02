@@ -1,9 +1,8 @@
-﻿import { Attachments } from '@ant-design/x'
+import { Attachments } from '@ant-design/x'
 import { IMessageFileItem } from '@dify-chat/api'
 import { useAppContext } from '@dify-chat/core'
 import { useMemo } from 'react'
 import { PhotoProvider, PhotoView } from 'react-photo-view'
-import 'react-photo-view/dist/react-photo-view.css'
 
 import { useGlobalStore } from '../../../store'
 import { completeFileUrl } from '../../../utils'

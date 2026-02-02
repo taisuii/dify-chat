@@ -140,9 +140,19 @@ function App() {
 
 ## 四、支持的打包工具
 
-- **Rsbuild / Vite**：开箱即用，无需额外配置
-- **Create React App (Webpack 5)**：theme 与 widget 均已改为从 `lucide-react` 主入口导入图标，CRA 下一般可开箱构建，无需 CRACO
-- **Next.js**：一般无需额外配置，如有问题可参考 CRA 方案
+- **Rsbuild / Vite**：开箱即用，需在应用入口导入 Widget 依赖的样式（见下文「Next.js」）。
+- **Create React App (Webpack 5)**：theme 与 widget 均已改为从 `lucide-react` 主入口导入图标，CRA 下一般可开箱构建，需在入口导入 Widget 依赖的样式，如有问题可参考 CRACO 方案。
+- **Next.js**：Next.js 禁止从 node_modules 导入全局 CSS，Widget 内部已移除相关 import。**必须在应用入口（如 `pages/_app.tsx`）显式导入以下样式**：
+
+```tsx
+// pages/_app.tsx（Pages Router）或 app/layout.tsx（App Router）
+import 'katex/dist/katex.min.css'
+import 'react-photo-view/dist/react-photo-view.css'
+import '@dify-chat/widget/markdown-styles.css'
+import '@dify-chat/widget/theme-default.css'  // 或自写主题变量
+```
+
+`katex` 与 `react-photo-view` 为 widget 的 dependencies，安装 widget 时会自动安装，一般无需额外声明。
 
 ---
 
@@ -238,6 +248,16 @@ widget 使用 **Tailwind** 类名（如 `flex`、`rounded-t-3xl`、`bg-theme-mai
 3. 定义**必需的 CSS 变量**（`:root` 与 `.dark`），见 skill「必需的 CSS 变量」。
 
 可参考 `fixtures/tgz-consumer` 的 `tailwind.config.js`、`theme-vars.css` 与 `postcss.config.js`。
+
+### Next.js / 禁止从 node_modules 导入 CSS 的框架
+
+Widget 内部不再 import 第三方 CSS（katex、react-photo-view）及 markdown 组件样式，以避免 Next.js 报错「Global CSS cannot be imported from within node_modules」。**接入方需在应用入口**（如 `pages/_app.tsx` 或 `app/layout.tsx`）**显式导入**：
+
+```tsx
+import 'katex/dist/katex.min.css'
+import 'react-photo-view/dist/react-photo-view.css'
+import '@dify-chat/widget/markdown-styles.css'
+```
 
 ### 预览/构建后页面空白、控制台报 "React is not defined"
 

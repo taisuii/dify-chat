@@ -27,7 +27,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./theme-default.css": "./dist/theme-default.css"
+    "./theme-default.css": "./dist/theme-default.css",
+    "./markdown-styles.css": "./dist/components/markdown-renderer/index.css"
   },
   "publishConfig": {
     "access": "public",

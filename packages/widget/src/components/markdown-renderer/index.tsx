@@ -4,7 +4,6 @@ import { copyToClipboard } from '@toolkit-fe/clipboard'
 import { message, Tooltip } from 'antd'
 import ReactEcharts from 'echarts-for-react'
 import type { Element, Root, Text } from 'hast'
-import 'katex/dist/katex.min.css'
 import { flow } from 'lodash-es'
 import React, { AnchorHTMLAttributes, Component, memo, useMemo, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -25,7 +24,6 @@ import SVGBtn from './blocks/svg-button'
 import SVGRenderer from './blocks/svg-renderer'
 import ThinkBlock from './blocks/think-block'
 import VideoBlock from './blocks/video'
-import './index.css'
 
 // Available language https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MD
 const capitalizationLanguageNameMap: Record<string, string> = {

@@ -8,6 +8,11 @@ import './App.css'
 
 import '@/libs/i18n'
 
+// Widget 依赖的样式（Next.js 等禁止从 node_modules 导入 CSS 的框架需在应用入口显式导入）
+import 'katex/dist/katex.min.css'
+import 'react-photo-view/dist/react-photo-view.css'
+import '@dify-chat/widget/markdown-styles.css'
+
 /**
  * DifyChat Widget Showcase - 展示 DifyChat 组件的使用效果
  */

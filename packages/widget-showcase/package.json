@@ -12,6 +12,8 @@
 		"@dify-chat/theme": "workspace:^",
 		"@dify-chat/widget": "workspace:^",
 		"antd": "catalog:",
+		"katex": "catalog:",
+		"react-photo-view": "catalog:",
 		"i18next": "^25.7.4",
 		"i18next-browser-languagedetector": "^8.2.0",
 		"react": "catalog:",
