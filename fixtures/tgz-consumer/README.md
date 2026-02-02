@@ -1,6 +1,6 @@
 # tgz-consumer
 
-用于**发布前验证**与**查看接入效果**的 fixture：从 `dist-packages/*.tgz` 安装 `@dify-chat/widget` 与 `@dify-chat/theme`，模拟真实用户的安装与构建/运行。
+用于**发布前验证**与**查看接入效果**的 fixture：从 `dist-packages/*.tgz` 安装 `@dify-chat/widget` 与 `@dify-chat/theme`，模拟真实用户的安装与构建/运行。使用 **Next.js 14（Pages Router）** 验证 Next.js 接入场景。
 
 - **不纳入 pnpm workspace**，单独 `pnpm install` 时依赖由 overrides 指向 tgz。
 - **推荐在仓库根目录使用**：
