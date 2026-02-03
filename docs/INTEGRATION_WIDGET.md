@@ -154,6 +154,12 @@ import '@dify-chat/widget/theme-default.css'  // 或自写主题变量
 
 `katex` 与 `react-photo-view` 为 widget 的 dependencies，安装 widget 时会自动安装，一般无需额外声明。
 
+**若 Next.js 构建报错**（如 "Global CSS cannot be imported from node_modules"）：部分环境会解析到 CJS 入口，触发 context require 误匹配。v0.1.3+ 已导出 ESM 子路径，可显式使用：
+
+```ts
+import { DifyChat } from '@dify-chat/widget/dist/index.js'
+```
+
 ---
 
 ## 五、版本与依赖

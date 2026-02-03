@@ -1,6 +1,6 @@
 {
   "name": "@dify-chat/widget",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Dify Chat Widget - Reusable Dify Chat Component",
   "author": {
     "name": "taisuii",
@@ -27,6 +27,7 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./dist/index.js": "./dist/index.js",
     "./theme-default.css": "./dist/assets/theme-default.css",
     "./markdown-styles.css": "./dist/assets/markdown-renderer.css"
   },

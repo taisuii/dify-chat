@@ -7,7 +7,7 @@ description: 集成 DifyChat Widget 组件到 React 项目中。当需要将 Dif
 
 DifyChat Widget 是一个可复用的 React 聊天组件，用于快速对接 Dify AI 应用。
 
-**版本说明**：v0.1.3+ 修复 Next.js 14（Pages Router）接入时的 context require 误匹配问题，CJS 产物已隔离至 `dist/cjs/`，CSS 移至 `dist/assets/`，可稳定构建。
+**版本说明**：v0.1.3 调整了 dist 结构（CJS→`dist/cjs/`，CSS→`dist/assets/`）。若 Next.js 构建仍因 CJS context require 报错，可显式使用 ESM 入口：`import { DifyChat } from '@dify-chat/widget/dist/index.js'`。
 
 ## 对接清单（集成前必读）
 
@@ -279,15 +279,19 @@ function App() {
 
 所有包都导出了完整的 TypeScript 类型定义。
 
-### Next.js 14 接入（v0.1.3+）
+### Next.js 14 接入
 
-v0.1.3 起已修复 Next.js 14 Pages Router 下的构建问题（原 index.cjs 的 context require 误匹配 CSS、.d.ts）。接入方式与普通 React 项目一致：
+**常规接入**：在 `_app.tsx` 中引入 `theme-default.css`、`markdown-styles.css`，可参考 **fixtures/tgz-consumer**。
 
-- 在 `_app.tsx` 中引入 `theme-default.css`、`markdown-styles.css`
-- 使用 `transpilePackages: ['@dify-chat/widget', '@dify-chat/theme']`（可选）
-- 无需额外 webpack alias 或 workaround
+**若构建报错**（如 "Global CSS cannot be imported from node_modules"）：部分 Next.js 环境会解析到 CJS 入口，触发 `require("./"+chunkId)` 的 context 误匹配。可**显式使用 ESM 入口**绕过：
 
-可参考 **fixtures/tgz-consumer** 的完整 Next.js 接入示例。
+```ts
+// 将 import { DifyChat } from '@dify-chat/widget'
+// 改为：
+import { DifyChat } from '@dify-chat/widget/dist/index.js'
+```
+
+v0.1.3+ 已导出 `./dist/index.js` 子路径，该写法可避免 CJS context 问题。
 
 ## 包结构说明
 

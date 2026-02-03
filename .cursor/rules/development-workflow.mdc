@@ -1,5 +1,5 @@
 ---
-description: 开发前阅读项目架构，开发时避免后台运行与重复创建脚本，大改动后同步更新架构文档，发布时按流程删旧包、提版本、构建、更新 skill
+description: 开发前阅读项目架构，开发时避免后台运行与重复创建脚本，大改动后同步更新架构文档；发布时必做：删 dist-packages、提版本、构建、验证、更新 skill
 alwaysApply: true
 ---
 
@@ -32,7 +32,7 @@ alwaysApply: true
 
 ## 发布与更新流程（问题修复或功能变更后需发布时）
 
-当对 `@dify-chat/*` 包做了修改且需要发布新版本时，按以下顺序执行：
+当对 `@dify-chat/*` 包做了修改且需要发布新版本时，**必须**按以下顺序执行，缺一不可：
 
 1. **删除 dist-packages 下的旧包**：清空 `dist-packages/` 目录下所有 `.tgz` 文件，避免与新包混淆。
 2. **提高版本号**：
@@ -40,7 +40,12 @@ alwaysApply: true
    - `packages/widget` 的 `package.json` 中 `version` 单独提升（如 0.1.2 → 0.1.3）；
    - 根目录 `package.json` 的 `version` 与 api/core/helpers/theme 保持一致。
 3. **构建新包**：执行 `pnpm run pack:local`，在 `dist-packages/` 下生成带新版本号的 tgz。
-4. **更新 dify-chat-widget-integration skill**：在 `dify-chat-widget-integration` skill（通常位于 `~/.cursor/skills/dify-chat-widget-integration/SKILL.md` 或项目引用的对应路径）中，将安装说明、最小依赖清单、pnpm.overrides 示例等处的版本号更新为上述新版本，确保接入方文档与发布包一致。
+4. **验证构建**（建议）：执行 `pnpm run pack:verify`，确保 tgz 在 Next.js fixture 中可正常安装与构建。
+5. **更新 dify-chat-widget-integration skill**：
+   - **项目内**：更新 `SKILL.md`（根目录）、`docs/INTEGRATION_WIDGET.md` 中安装说明、最小依赖清单、pnpm.overrides 示例、版本号等，确保接入方文档与发布包一致；
+   - **用户级**（若存在）：同步更新 `~/.cursor/skills/dify-chat-widget-integration/SKILL.md`，保持与项目 SKILL.md 一致。
+
+**触发条件**：修复 bug、解决兼容性问题、新增功能、调整 dist 结构或 exports 等，凡影响接入方使用方式的变更，均需走完整发布流程。
 
 ## 示例
 
@@ -48,4 +53,4 @@ alwaysApply: true
 
 **大变动后**：新增了 `packages/analytics` 包 → 在 SKILL.md 增加该包说明与依赖关系，在 reference.md 增加该包目录与关键文件表。
 
-**发布后**：修复了 widget 的 bug → 删除 `dist-packages/*.tgz` → 将 api/core/helpers/theme 版本改为 0.7.3、widget 改为 0.1.3 → 执行 `pnpm run pack:local` → 更新 dify-chat-widget-integration skill 中的 0.7.2/0.1.2 为新版本号。
+**发布后**：修复了 widget 的 bug → 删除 `dist-packages/*.tgz` → 将 api/core/helpers/theme 版本改为 0.7.3、widget 改为 0.1.3 → 执行 `pnpm run pack:local` → （可选）`pnpm run pack:verify` → 更新 `SKILL.md`、`docs/INTEGRATION_WIDGET.md` 及用户级 dify-chat-widget-integration skill 中的 0.7.2/0.1.2 为新版本号。
