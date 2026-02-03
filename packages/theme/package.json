@@ -1,6 +1,6 @@
 {
   "name": "@dify-chat/theme",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "author": {
     "name": "lexmin0412",
     "email": "zhangle_dev@outlook.com",
@@ -16,12 +16,15 @@
     "dist"
   ],
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "source": "./src/index.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "publishConfig": {

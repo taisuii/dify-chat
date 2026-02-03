@@ -39,7 +39,19 @@ export default defineConfig({
 		{
 			format: 'cjs',
 			syntax: 'es2021',
-			bundle: false,
+			bundle: true,
+			autoExternal: {
+				dependencies: false,
+				peerDependencies: true,
+			},
+			output: {
+				externals: [
+					'@dify-chat/api',
+					'@dify-chat/core',
+					'@dify-chat/helpers',
+					'@dify-chat/theme',
+				],
+			},
 		},
 	],
 	source: {

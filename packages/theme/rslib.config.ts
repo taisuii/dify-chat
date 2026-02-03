@@ -12,6 +12,12 @@ export default defineConfig({
 			bundle: false,
 			dts: true,
 			format: 'esm',
+			syntax: 'es2021',
+		},
+		{
+			bundle: false,
+			format: 'cjs',
+			syntax: 'es2021',
 		},
 	],
 	output: {
