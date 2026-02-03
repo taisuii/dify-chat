@@ -45,6 +45,8 @@
 
 | 路径 | 用途 |
 |------|------|
+| `dist/cjs/` | CJS 构建产物（index.cjs 及 chunk），与 CSS/.d.ts 隔离，避免 Next.js 中 context require 误匹配 |
+| `dist/assets/` | 主题与 Markdown 样式（theme-default.css、markdown-renderer.css） |
 | `src/index.ts` | 包入口 |
 | `src/components/` | 聊天框(chatbox)、会话列表(conversation-list)、布局(layout)、Markdown(markdown-renderer)、消息发送(message-sender)、表单(form)、调试(debug-mode)、i18n-switcher、lucide-icon 等 |
 | `src/config/` | 运行时配置 |

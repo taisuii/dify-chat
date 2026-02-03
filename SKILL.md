@@ -7,6 +7,8 @@ description: 集成 DifyChat Widget 组件到 React 项目中。当需要将 Dif
 
 DifyChat Widget 是一个可复用的 React 聊天组件，用于快速对接 Dify AI 应用。
 
+**版本说明**：v0.1.3+ 修复 Next.js 14（Pages Router）接入时的 context require 误匹配问题，CJS 产物已隔离至 `dist/cjs/`，CSS 移至 `dist/assets/`，可稳定构建。
+
 ## 对接清单（集成前必读）
 
 **简化后**：以下为「必须由接入方做的」与「可选/内置」的边界，按此做即可获得与 **widget-showcase** 一致的效果。
@@ -276,6 +278,16 @@ function App() {
 ### TypeScript 类型
 
 所有包都导出了完整的 TypeScript 类型定义。
+
+### Next.js 14 接入（v0.1.3+）
+
+v0.1.3 起已修复 Next.js 14 Pages Router 下的构建问题（原 index.cjs 的 context require 误匹配 CSS、.d.ts）。接入方式与普通 React 项目一致：
+
+- 在 `_app.tsx` 中引入 `theme-default.css`、`markdown-styles.css`
+- 使用 `transpilePackages: ['@dify-chat/widget', '@dify-chat/theme']`（可选）
+- 无需额外 webpack alias 或 workaround
+
+可参考 **fixtures/tgz-consumer** 的完整 Next.js 接入示例。
 
 ## 包结构说明
 

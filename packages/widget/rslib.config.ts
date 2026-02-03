@@ -17,11 +17,11 @@ export default defineConfig({
 		copy: [
 			{
 				from: './src/components/markdown-renderer/index.css',
-				to: 'components/markdown-renderer/index.css',
+				to: 'assets/markdown-renderer.css',
 			},
 			{
 				from: './src/theme-default.css',
-				to: 'theme-default.css',
+				to: 'assets/theme-default.css',
 			},
 			{
 				from: './declarations/index.d.ts',
@@ -51,6 +51,11 @@ export default defineConfig({
 					'@dify-chat/helpers',
 					'@dify-chat/theme',
 				],
+				// 将 CJS 及 chunk 输出到 dist/cjs/，避免 require("./"+chunkId) 的 context 匹配到 CSS、.d.ts
+				distPath: {
+					js: 'cjs',
+					jsAsync: 'cjs',
+				},
 			},
 		},
 	],

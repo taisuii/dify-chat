@@ -1,5 +1,5 @@
 ---
-description: 开发前阅读项目架构，开发时避免后台运行与重复创建脚本，大改动后同步更新架构文档
+description: 开发前阅读项目架构，开发时避免后台运行与重复创建脚本，大改动后同步更新架构文档，发布时按流程删旧包、提版本、构建、更新 skill
 alwaysApply: true
 ---
 
@@ -30,8 +30,22 @@ alwaysApply: true
   - 更新 `.cursor/skills/project-architecture/reference.md`：受影响包下的目录与文件说明
 - 小范围修 bug、改样式、单文件逻辑调整通常无需改架构文档；有疑问时以「是否影响他人找模块/文件」为准。
 
+## 发布与更新流程（问题修复或功能变更后需发布时）
+
+当对 `@dify-chat/*` 包做了修改且需要发布新版本时，按以下顺序执行：
+
+1. **删除 dist-packages 下的旧包**：清空 `dist-packages/` 目录下所有 `.tgz` 文件，避免与新包混淆。
+2. **提高版本号**：
+   - `packages/api`、`packages/core`、`packages/helpers`、`packages/theme` 的 `package.json` 中 `version` 同步提升（如 0.7.2 → 0.7.3）；
+   - `packages/widget` 的 `package.json` 中 `version` 单独提升（如 0.1.2 → 0.1.3）；
+   - 根目录 `package.json` 的 `version` 与 api/core/helpers/theme 保持一致。
+3. **构建新包**：执行 `pnpm run pack:local`，在 `dist-packages/` 下生成带新版本号的 tgz。
+4. **更新 dify-chat-widget-integration skill**：在 `dify-chat-widget-integration` skill（通常位于 `~/.cursor/skills/dify-chat-widget-integration/SKILL.md` 或项目引用的对应路径）中，将安装说明、最小依赖清单、pnpm.overrides 示例等处的版本号更新为上述新版本，确保接入方文档与发布包一致。
+
 ## 示例
 
 **开发前**：要改「会话列表」→ 查 SKILL.md 知会话列表在 widget 的 `conversation-list`；查 reference.md 知具体路径为 `packages/widget/src/components/conversation-list/` 等。
 
 **大变动后**：新增了 `packages/analytics` 包 → 在 SKILL.md 增加该包说明与依赖关系，在 reference.md 增加该包目录与关键文件表。
+
+**发布后**：修复了 widget 的 bug → 删除 `dist-packages/*.tgz` → 将 api/core/helpers/theme 版本改为 0.7.3、widget 改为 0.1.3 → 执行 `pnpm run pack:local` → 更新 dify-chat-widget-integration skill 中的 0.7.2/0.1.2 为新版本号。
