@@ -5,6 +5,16 @@
 import type { ComponentType } from 'react'
 import type { i18n } from 'i18next'
 
+/** 小窗口/嵌入场景的布局配置 */
+export interface ChatLayoutConfig {
+	/** 对话区 InfiniteScroll 的 minHeight，小窗口时用 '100%' 或 'auto' */
+	containerMinHeight?: string | number
+	/** 侧边栏展开时的宽度（px），小窗口时可设为 200 等 */
+	sidebarWidth?: number
+	/** 侧边栏是否默认收起，小窗口时建议 true */
+	sidebarCollapsedByDefault?: boolean
+}
+
 export interface DifyChatProps {
 	apiBase: string
 	apiKey: string
@@ -22,6 +32,8 @@ export interface DifyChatProps {
 	/** 语言变化回调（组件内部切换时通知外部） */
 	onLanguageChange?: (language: 'en' | 'zh') => void
 	onError?: (error: Error) => void
+	/** 小窗口/嵌入场景布局配置 */
+	layout?: ChatLayoutConfig
 }
 
 export const DifyChat: ComponentType<DifyChatProps>

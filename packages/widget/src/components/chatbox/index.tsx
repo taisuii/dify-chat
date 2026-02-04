@@ -20,6 +20,12 @@ import { useTranslation } from 'react-i18next'
 
 export interface ChatboxProps {
 	/**
+	 * InfiniteScroll 的 minHeight，用于适配非全屏小窗口。
+	 * 全屏时用 'calc(100vh - 10.25rem)'；小窗口时用 '100%' 或 'auto' 以适配容器高度。
+	 * @default 'calc(100vh - 10.25rem)'
+	 */
+	containerMinHeight?: string | number
+	/**
 	 * 消息列表
 	 */
 	messageItems: IMessageItem4Render[]
@@ -89,6 +95,7 @@ export interface ChatboxProps {
  */
 export const Chatbox = (props: ChatboxProps) => {
 	const {
+		containerMinHeight = 'calc(100vh - 10.25rem)',
 		messageItems,
 		isRequesting,
 		nextSuggestions,
@@ -222,17 +229,17 @@ export const Chatbox = (props: ChatboxProps) => {
 	const scrollContainerRef = useRef<HTMLDivElement>(null)
 
 	/**
-	 * 监听 items 更新，滚动到最底部
+	 * 监听 items 更新，滚动到最新消息位置。
+	 * column-reverse 布局下，新消息在顶部，scrollTop=0 即显示最新。
 	 */
-	const scroll2BottomWhenMessagesChange = useEffectEvent(() => {
-		// 如果非请求中，不滚动（防止影响下拉刷新功能）
+	const scroll2LatestWhenMessagesChange = useEffectEvent(() => {
 		if (!isRequesting || !shouldAutoScroll2Bottom) {
 			return
 		}
 		if (scrollContainerRef.current) {
 			scrollContainerRef.current.scrollTo({
 				behavior: 'smooth',
-				top: scrollContainerRef.current.scrollHeight,
+				top: 0,
 			})
 		}
 	})
@@ -240,8 +247,13 @@ export const Chatbox = (props: ChatboxProps) => {
 	// 延迟更新，优化性能
 	const deferredItems = useDeferredValue(items)
 	useEffect(() => {
-		scroll2BottomWhenMessagesChange()
+		scroll2LatestWhenMessagesChange()
 	}, [deferredItems])
+
+	// 切换/新建会话时滚动到顶部（显示最新消息）
+	useEffect(() => {
+		scrollContainerRef.current?.scrollTo({ top: 0 })
+	}, [conversationId])
 
 	// 获取应用的对话开场白展示模式
 	const openingStatementMode =
@@ -288,8 +300,7 @@ export const Chatbox = (props: ChatboxProps) => {
 						style={{
 							display: 'flex',
 							flexDirection: 'column-reverse',
-							// 减去除消息列表外其他纵向元素的高度
-							minHeight: 'calc(100vh - 10.25rem)',
+							minHeight: containerMinHeight,
 						}}
 					>
 						<div className="mx-auto box-border w-full flex-1 px-3 pb-6 md:max-w-[720px] md:px-6">

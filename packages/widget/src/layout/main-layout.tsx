@@ -5,7 +5,7 @@ import React from 'react'
 import { colors } from '../theme/config'
 import { isChatLikeApp, isWorkflowLikeApp } from '../utils'
 
-import ChatLayout from './chat-layout'
+import ChatLayout, { type ChatLayoutConfig } from './chat-layout'
 import CommonLayout from './common-layout'
 import WorkflowLayout from './workflow-layout'
 
@@ -16,6 +16,8 @@ interface IMainLayoutProps {
 	initLoading: boolean
 	/** 头部模式：full-完整头部，minimal-仅保留主题/语言切换，none-完全隐藏头部 */
 	headerMode?: 'full' | 'minimal' | 'none'
+	/** 小窗口/嵌入场景布局配置 */
+	layout?: ChatLayoutConfig
 }
 
 /**
@@ -30,7 +32,7 @@ const MainLayout = (props: IMainLayoutProps) => {
 	return (
 		<XProvider theme={{ token: { colorPrimary: colors.primary, colorText: colors['theme-text'] } }}>
 			{isChatLikeApp(appMode) ? (
-				<ChatLayout {...props} />
+				<ChatLayout {...props} layout={props.layout} />
 			) : (
 				<CommonLayout
 					initLoading={props.initLoading}

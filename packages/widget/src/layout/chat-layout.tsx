@@ -38,6 +38,16 @@ import { useLatest } from '../hooks/use-latest'
 import { useGlobalStore } from '../store'
 import { useTranslation } from 'react-i18next'
 
+/** 小窗口/嵌入场景的布局配置 */
+export interface ChatLayoutConfig {
+	/** 对话区 InfiniteScroll 的 minHeight，小窗口时用 '100%' 或 'auto' */
+	containerMinHeight?: string | number
+	/** 侧边栏展开时的宽度（px），小窗口时可设为 200 等 */
+	sidebarWidth?: number
+	/** 侧边栏是否默认收起，小窗口时建议 true */
+	sidebarCollapsedByDefault?: boolean
+}
+
 interface IChatLayoutProps {
 	/**
 	 * 扩展的 JSX 元素, 如抽屉/弹窗等
@@ -59,6 +69,10 @@ interface IChatLayoutProps {
 	 * 头部模式：full-完整头部，minimal-仅保留主题/语言切换，none-完全隐藏头部
 	 */
 	headerMode?: 'full' | 'minimal' | 'none'
+	/**
+	 * 小窗口/嵌入场景布局配置
+	 */
+	layout?: ChatLayoutConfig
 }
 
 /**
@@ -87,11 +101,15 @@ const MinimalHeaderControls = () => {
 	)
 }
 
+const SIDEBAR_WIDTH_EXPANDED = 288 // w-72 = 18rem = 288px
+const SIDEBAR_WIDTH_COLLAPSED = 56 // w-14 = 3.5rem = 56px
+
 export default function ChatLayout(props: IChatLayoutProps) {
 	const { t, i18n } = useTranslation()
 	const { difyApi } = useGlobalStore()
-	const { extComponents, renderCenterTitle, initLoading, headerMode = 'full' } = props
-	const [sidebarOpen, setSidebarOpen] = useState(true)
+	const { extComponents, renderCenterTitle, initLoading, headerMode = 'full', layout } = props
+	const sidebarWidth = layout?.sidebarWidth ?? SIDEBAR_WIDTH_EXPANDED
+	const [sidebarOpen, setSidebarOpen] = useState(!(layout?.sidebarCollapsedByDefault ?? false))
 	const { themeMode, setThemeMode } = useThemeContext()
 	const { appLoading, currentApp } = useAppContext()
 	const [renameForm] = Form.useForm()
@@ -464,7 +482,10 @@ export default function ChatLayout(props: IChatLayoutProps) {
 						<>
 							{/* 左侧对话列表 */}
 							<div
-								className={`hidden md:!flex ${sidebarOpen ? 'w-72' : 'w-14'} h-full flex-col border-0 border-r border-solid border-r-theme-splitter transition-all`}
+								className="hidden md:!flex h-full flex-col border-0 border-r border-solid border-r-theme-splitter transition-all"
+								style={{
+									width: sidebarOpen ? sidebarWidth : SIDEBAR_WIDTH_COLLAPSED,
+								}}
 							>
 								{sidebarOpen ? (
 									<>
@@ -562,6 +583,7 @@ export default function ChatLayout(props: IChatLayoutProps) {
 									conversationListLoading={conversationListLoading}
 									onAddConversation={onAddConversation}
 									conversationItemsChangeCallback={() => getConversationItems(false)}
+									containerMinHeight={layout?.containerMinHeight}
 								/>
 							</div>
 						</>

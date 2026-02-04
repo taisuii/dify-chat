@@ -71,6 +71,7 @@ import { useTranslation } from 'react-i18next'
 import { useThemeContext } from '@dify-chat/theme'
 
 import MainLayout from '../../layout/main-layout'
+import type { ChatLayoutConfig } from '../../layout/chat-layout'
 import { useGlobalStore } from '../../store'
 import type { IGetAppParametersResponse } from '@dify-chat/api'
 
@@ -91,6 +92,11 @@ export interface DifyChatProps {
 	/** 语言变化回调（组件内部切换时通知外部） */
 	onLanguageChange?: (language: 'en' | 'zh') => void
 	onError?: (error: Error) => void
+	/**
+	 * 小窗口/嵌入场景布局配置。
+	 * 悬浮抽屉、侧边栏、弹窗等非全屏场景下，建议传入以正确适配。
+	 */
+	layout?: ChatLayoutConfig
 }
 
 export function DifyChat(props: DifyChatProps) {
@@ -105,6 +111,7 @@ export function DifyChat(props: DifyChatProps) {
 		onThemeChange,
 		onLanguageChange,
 		onError,
+		layout,
 	} = props
 	const [defaultUser] = useState(() => generateUuidV4())
 	const user = userProp ?? defaultUser
@@ -274,6 +281,7 @@ export function DifyChat(props: DifyChatProps) {
 					headerMode="none"
 					renderCenterTitle={info => (info ? <span>{info.name}</span> : null)}
 					extComponents={null}
+					layout={layout}
 				/>
 			</AppContextProvider>
 		</div>

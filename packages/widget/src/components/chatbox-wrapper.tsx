@@ -31,6 +31,10 @@ interface IChatboxWrapperProps {
 	 * 触发配置应用事件
 	 */
 	handleStartConfig?: () => void
+	/**
+	 * 小窗口适配：InfiniteScroll 的 minHeight，传 '100%' 或 'auto' 以适配容器
+	 */
+	containerMinHeight?: string | number
 }
 
 /**
@@ -43,6 +47,7 @@ export default function ChatboxWrapper(props: IChatboxWrapperProps) {
 		onAddConversation,
 		conversationItemsChangeCallback,
 		handleStartConfig,
+		containerMinHeight,
 	} = props
 	const {
 		currentConversationId,
@@ -411,6 +416,7 @@ export default function ChatboxWrapper(props: IChatboxWrapperProps) {
 
 				{currentConversationId ? (
 					<Chatbox
+						containerMinHeight={containerMinHeight}
 						conversationId={currentConversationId!}
 						nextSuggestions={nextSuggestions}
 						messageItems={messageItems}

@@ -1,10 +1,10 @@
 {
 	"name": "dify-chat-root",
-	"version": "0.7.4",
+	"version": "0.7.5",
 	"private": true,
 	"scripts": {
 		"build": "pnpm -r build",
-		"build:pkgs": "pnpm --filter @dify-chat/* build",
+		"build:pkgs": "pnpm --filter @dify-chat/helpers build && pnpm --filter @dify-chat/core build && pnpm --filter @dify-chat/theme build && pnpm --filter @dify-chat/api build && pnpm --filter @dify-chat/widget build",
 		"pack:local": "node scripts/pack-packages.mjs",
 		"pack:verify": "node scripts/verify-pack.mjs",
 		"pack:verify:preview": "node scripts/verify-pack.mjs --preview",

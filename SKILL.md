@@ -7,7 +7,7 @@ description: 集成 DifyChat Widget 组件到 React 项目中。当需要将 Dif
 
 DifyChat Widget 是一个可复用的 React 聊天组件，用于快速对接 Dify AI 应用。
 
-**版本说明**：当前 @dify-chat/* 0.7.4、@dify-chat/widget 0.1.5。v0.1.4 调整了 dist 结构（CJS→`dist/cjs/`，CSS→`dist/assets/`），并导出 ESM 子路径 `./dist/index.js`。v0.1.5 起 addDifyChatI18n 支持 zh-CN/en-US，i18next 改为 peerDependency。若 Next.js 构建仍因 CJS context require 报错，可显式使用：`import { DifyChat } from '@dify-chat/widget/dist/index.js'`。
+**版本说明**：当前 @dify-chat/* 0.7.5、@dify-chat/widget 0.1.6。v0.1.4 调整了 dist 结构（CJS→`dist/cjs/`，CSS→`dist/assets/`），并导出 ESM 子路径 `./dist/index.js`。v0.1.5 起 addDifyChatI18n 支持 zh-CN/en-US，i18next 改为 peerDependency。v0.1.6 起支持小窗口 layout 配置。若 Next.js 构建仍因 CJS context require 报错，可显式使用：`import { DifyChat } from '@dify-chat/widget/dist/index.js'`。
 
 ## 对接清单（集成前必读）
 
@@ -204,6 +204,8 @@ function App() {
 ```
 
 **注意**：仍需在宿主项目中配置 **Tailwind**（content 含 widget dist、theme 扩展主题色），否则类名不生效。深色模式建议加 ConfigProvider 的 `theme.algorithm: darkAlgorithm`。
+
+**小窗口适配**：悬浮抽屉、侧边栏、弹窗等非全屏场景，传入 `layout` 配置，详见 [docs/dify-chat-widget-small-window.md](docs/dify-chat-widget-small-window.md)。
 
 ### 带主题切换（含 Ant 深色与 i18n，与 showcase 一致）
 
