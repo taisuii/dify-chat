@@ -21,8 +21,8 @@ import { useTranslation } from 'react-i18next'
 export interface ChatboxProps {
 	/**
 	 * InfiniteScroll 的 minHeight，用于适配父容器。
-	 * 默认 '100%' 按父容器高度适配，避免小窗口下出现多余滚动条。
-	 * @default '100%'
+	 * 全屏时用 'calc(100vh - 10.25rem)' 保证流式打字效果；小窗口时传 '100%' 或 'auto'。
+	 * @default 'calc(100vh - 10.25rem)'
 	 */
 	containerMinHeight?: string | number
 	/**
@@ -95,7 +95,7 @@ export interface ChatboxProps {
  */
 export const Chatbox = (props: ChatboxProps) => {
 	const {
-		containerMinHeight = '100%',
+		containerMinHeight = 'calc(100vh - 10.25rem)',
 		messageItems,
 		isRequesting,
 		nextSuggestions,

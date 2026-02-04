@@ -7,7 +7,7 @@ import type { i18n } from 'i18next'
 
 /** 小窗口/嵌入场景的布局配置 */
 export interface ChatLayoutConfig {
-	/** 对话区 InfiniteScroll 的 minHeight，小窗口时用 '100%' 或 'auto' */
+	/** 对话区 InfiniteScroll 的 minHeight，全屏默认 calc(100vh - 10.25rem)；小窗口时传 '100%' 或 'auto' */
 	containerMinHeight?: string | number
 	/** 侧边栏展开时的宽度，不传则根据父容器自适应；传数字为固定 px */
 	sidebarWidth?: number | string

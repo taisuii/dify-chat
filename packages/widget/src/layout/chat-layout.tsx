@@ -40,11 +40,11 @@ import { useTranslation } from 'react-i18next'
 
 /** 小窗口/嵌入场景的布局配置 */
 export interface ChatLayoutConfig {
-	/** 对话区 InfiniteScroll 的 minHeight，小窗口时用 '100%' 或 'auto' */
+	/** 对话区 InfiniteScroll 的 minHeight，全屏默认 calc(100vh - 10.25rem)；小窗口时传 '100%' 或 'auto' */
 	containerMinHeight?: string | number
 	/**
 	 * 侧边栏展开时的宽度。
-	 * - 不传：根据父容器宽度自适应，窗口模式窄、全屏宽（clamp(140px, 18%, 288px)）
+	 * - 不传：根据父容器宽度自适应，窗口模式窄、全屏宽（clamp(188px, 18%, 288px)）
 	 * - 传数字：固定宽度（px）
 	 */
 	sidebarWidth?: number | string
@@ -105,8 +105,8 @@ const MinimalHeaderControls = () => {
 	)
 }
 
-/** 侧边栏自适应：小窗口窄、全屏宽，clamp(140px, 18%, 288px) */
-const SIDEBAR_WIDTH_RESPONSIVE = 'clamp(140px, 18%, 288px)'
+/** 侧边栏自适应：小窗口窄、全屏宽，clamp(188px, 18%, 288px) */
+const SIDEBAR_WIDTH_RESPONSIVE = 'clamp(188px, 18%, 288px)'
 const SIDEBAR_WIDTH_COLLAPSED = 56 // w-14 = 3.5rem = 56px
 
 export default function ChatLayout(props: IChatLayoutProps) {
