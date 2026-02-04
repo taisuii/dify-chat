@@ -32,8 +32,8 @@ import { DifyChat } from '@dify-chat/widget'
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
-| `containerMinHeight` | `string \| number` | InfiniteScroll 的 minHeight。全屏默认 `calc(100vh - 10.25rem)`；小窗口建议 `'100%'` 或 `'auto'` |
-| `sidebarWidth` | `number` | 侧边栏展开时的宽度（px），默认 288。小窗口可设为 200 等 |
+| `containerMinHeight` | `string \| number` | InfiniteScroll 的 minHeight。默认 `'100%'` 已适配父容器；一般无需传入 |
+| `sidebarWidth` | `number \| string` | 不传则根据父容器自适应（clamp(140px, 18%, 288px)）；传数字为固定 px |
 | `sidebarCollapsedByDefault` | `boolean` | 侧边栏是否默认收起，默认 `false`。小窗口建议 `true` |
 
 ## 接入方容器建议
@@ -43,6 +43,6 @@ import { DifyChat } from '@dify-chat/widget'
 
 ## 模块侧已实施修改
 
-1. **InfiniteScroll minHeight**：支持通过 `containerMinHeight` 覆盖，小窗口时传 `'100%'` 或 `'auto'`
+1. **高度适配**：ChatboxWrapper 使用 `h-full` 适配父容器；InfiniteScroll 默认 `minHeight: 100%`，避免新建对话时出现多余滚动条
 2. **滚动逻辑**：新建/切换会话时滚动到顶部；发送消息后滚动到最新消息位置（column-reverse 下为 scrollTop=0）
-3. **侧边栏**：支持 `sidebarWidth`、`sidebarCollapsedByDefault` 配置
+3. **侧边栏**：默认根据父容器宽度自适应（窗口窄、全屏宽）；支持 `sidebarWidth` 固定、`sidebarCollapsedByDefault` 默认收起

@@ -406,7 +406,7 @@ export default function ChatboxWrapper(props: IChatboxWrapperProps) {
 	}
 
 	return (
-		<div className="flex h-screen flex-1 flex-col overflow-hidden">
+		<div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden">
 			<div className="relative flex-1 overflow-hidden">
 				{initLoading ? (
 					<div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center">

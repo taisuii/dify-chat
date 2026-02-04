@@ -9,8 +9,8 @@ import type { i18n } from 'i18next'
 export interface ChatLayoutConfig {
 	/** 对话区 InfiniteScroll 的 minHeight，小窗口时用 '100%' 或 'auto' */
 	containerMinHeight?: string | number
-	/** 侧边栏展开时的宽度（px），小窗口时可设为 200 等 */
-	sidebarWidth?: number
+	/** 侧边栏展开时的宽度，不传则根据父容器自适应；传数字为固定 px */
+	sidebarWidth?: number | string
 	/** 侧边栏是否默认收起，小窗口时建议 true */
 	sidebarCollapsedByDefault?: boolean
 }

@@ -7,7 +7,7 @@ description: 集成 DifyChat Widget 组件到 React 项目中。当需要将 Dif
 
 DifyChat Widget 是一个可复用的 React 聊天组件，用于快速对接 Dify AI 应用。
 
-**版本说明**：当前 @dify-chat/* 0.7.5、@dify-chat/widget 0.1.6。v0.1.4 调整了 dist 结构（CJS→`dist/cjs/`，CSS→`dist/assets/`），并导出 ESM 子路径 `./dist/index.js`。v0.1.5 起 addDifyChatI18n 支持 zh-CN/en-US，i18next 改为 peerDependency。v0.1.6 起支持小窗口 layout 配置。若 Next.js 构建仍因 CJS context require 报错，可显式使用：`import { DifyChat } from '@dify-chat/widget/dist/index.js'`。
+**版本说明**：当前 @dify-chat/* 0.7.6、@dify-chat/widget 0.1.7。v0.1.5 起 addDifyChatI18n 支持 zh-CN/en-US，i18next 改为 peerDependency。v0.1.6 起支持小窗口 layout 配置。v0.1.7 侧边栏根据父容器宽度自适应，聊天区适配父容器高度、初始加载后滚动到最新。若 Next.js 构建仍因 CJS context require 报错，可显式使用：`import { DifyChat } from '@dify-chat/widget/dist/index.js'`。
 
 ## 对接清单（集成前必读）
 

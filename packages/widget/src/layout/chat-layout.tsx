@@ -42,8 +42,12 @@ import { useTranslation } from 'react-i18next'
 export interface ChatLayoutConfig {
 	/** 对话区 InfiniteScroll 的 minHeight，小窗口时用 '100%' 或 'auto' */
 	containerMinHeight?: string | number
-	/** 侧边栏展开时的宽度（px），小窗口时可设为 200 等 */
-	sidebarWidth?: number
+	/**
+	 * 侧边栏展开时的宽度。
+	 * - 不传：根据父容器宽度自适应，窗口模式窄、全屏宽（clamp(140px, 18%, 288px)）
+	 * - 传数字：固定宽度（px）
+	 */
+	sidebarWidth?: number | string
 	/** 侧边栏是否默认收起，小窗口时建议 true */
 	sidebarCollapsedByDefault?: boolean
 }
@@ -101,14 +105,15 @@ const MinimalHeaderControls = () => {
 	)
 }
 
-const SIDEBAR_WIDTH_EXPANDED = 288 // w-72 = 18rem = 288px
+/** 侧边栏自适应：小窗口窄、全屏宽，clamp(140px, 18%, 288px) */
+const SIDEBAR_WIDTH_RESPONSIVE = 'clamp(140px, 18%, 288px)'
 const SIDEBAR_WIDTH_COLLAPSED = 56 // w-14 = 3.5rem = 56px
 
 export default function ChatLayout(props: IChatLayoutProps) {
 	const { t, i18n } = useTranslation()
 	const { difyApi } = useGlobalStore()
 	const { extComponents, renderCenterTitle, initLoading, headerMode = 'full', layout } = props
-	const sidebarWidth = layout?.sidebarWidth ?? SIDEBAR_WIDTH_EXPANDED
+	const sidebarWidth = layout?.sidebarWidth ?? SIDEBAR_WIDTH_RESPONSIVE
 	const [sidebarOpen, setSidebarOpen] = useState(!(layout?.sidebarCollapsedByDefault ?? false))
 	const { themeMode, setThemeMode } = useThemeContext()
 	const { appLoading, currentApp } = useAppContext()
@@ -480,11 +485,13 @@ export default function ChatLayout(props: IChatLayoutProps) {
 						</div>
 					) : currentApp?.config ? (
 						<>
-							{/* 左侧对话列表 */}
+							{/* 左侧对话列表：宽度随父容器自适应，传 layout.sidebarWidth 可覆盖 */}
 							<div
 								className="hidden md:!flex h-full flex-col border-0 border-r border-solid border-r-theme-splitter transition-all"
 								style={{
-									width: sidebarOpen ? sidebarWidth : SIDEBAR_WIDTH_COLLAPSED,
+									width: sidebarOpen
+										? (typeof sidebarWidth === 'number' ? sidebarWidth : sidebarWidth)
+										: SIDEBAR_WIDTH_COLLAPSED,
 								}}
 							>
 								{sidebarOpen ? (

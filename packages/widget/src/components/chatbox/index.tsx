@@ -20,9 +20,9 @@ import { useTranslation } from 'react-i18next'
 
 export interface ChatboxProps {
 	/**
-	 * InfiniteScroll 的 minHeight，用于适配非全屏小窗口。
-	 * 全屏时用 'calc(100vh - 10.25rem)'；小窗口时用 '100%' 或 'auto' 以适配容器高度。
-	 * @default 'calc(100vh - 10.25rem)'
+	 * InfiniteScroll 的 minHeight，用于适配父容器。
+	 * 默认 '100%' 按父容器高度适配，避免小窗口下出现多余滚动条。
+	 * @default '100%'
 	 */
 	containerMinHeight?: string | number
 	/**
@@ -95,7 +95,7 @@ export interface ChatboxProps {
  */
 export const Chatbox = (props: ChatboxProps) => {
 	const {
-		containerMinHeight = 'calc(100vh - 10.25rem)',
+		containerMinHeight = '100%',
 		messageItems,
 		isRequesting,
 		nextSuggestions,
@@ -251,9 +251,20 @@ export const Chatbox = (props: ChatboxProps) => {
 	}, [deferredItems])
 
 	// 切换/新建会话时滚动到顶部（显示最新消息）
+	const prevLengthRef = useRef(0)
 	useEffect(() => {
+		prevLengthRef.current = 0
 		scrollContainerRef.current?.scrollTo({ top: 0 })
 	}, [conversationId])
+
+	// 初始加载历史记录完成后滚动到顶部，避免「偏上、需手动上划才能看到最新」
+	useEffect(() => {
+		const prev = prevLengthRef.current
+		prevLengthRef.current = messageItems.length
+		if (prev === 0 && messageItems.length > 0) {
+			scrollContainerRef.current?.scrollTo({ top: 0 })
+		}
+	}, [messageItems.length])
 
 	// 获取应用的对话开场白展示模式
 	const openingStatementMode =
@@ -268,8 +279,8 @@ export const Chatbox = (props: ChatboxProps) => {
 	}, [openingStatementMode, items, conversationId])
 
 	return (
-		<div className="relative mx-auto my-0 box-border flex h-full w-full flex-col gap-4 overflow-hidden">
-			<div className="h-full w-full overflow-hidden pb-24 pt-1">
+		<div className="relative mx-auto my-0 box-border flex h-full w-full min-w-0 flex-col gap-4 overflow-hidden">
+			<div className="h-full w-full min-w-0 overflow-hidden pb-24 pt-1">
 				<div
 					id="scrollableDiv"
 					ref={scrollContainerRef}
@@ -303,7 +314,7 @@ export const Chatbox = (props: ChatboxProps) => {
 							minHeight: containerMinHeight,
 						}}
 					>
-						<div className="mx-auto box-border w-full flex-1 px-3 pb-6 md:max-w-[720px] md:px-6">
+						<div className="mx-auto box-border w-full min-w-0 flex-1 px-3 pb-6 md:max-w-[720px] md:px-6">
 							{/* 🌟 消息列表 */}
 							<Bubble.List
 								items={items}
