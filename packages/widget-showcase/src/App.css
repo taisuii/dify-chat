@@ -42,3 +42,8 @@ body {
 .dark body {
 	background: #000;
 }
+
+/* 弹窗对接：去除 Modal 外部圆角 */
+.dify-chat-modal-no-radius .ant-modal-content {
+	border-radius: 0 !important;
+}

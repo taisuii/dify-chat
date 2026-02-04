@@ -21,7 +21,7 @@ export default function CommonLayout(props: ICommonLayoutProps) {
 			<HeaderLayout title={renderCenterTitle?.(currentApp?.config?.info)} />
 
 			{/* Main */}
-			<div className="flex flex-1 overflow-hidden rounded-t-3xl bg-theme-main-bg">
+			<div className="flex flex-1 overflow-hidden bg-theme-main-bg">
 				{appLoading || initLoading ? (
 					<div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center">
 						<Spin spinning />

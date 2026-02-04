@@ -156,7 +156,7 @@ import '@dify-chat/widget/theme-default.css'  // 或自写主题变量
 
 **next-i18next 接入**：若使用 next-i18next（常用 zh-CN、en-US），`addDifyChatI18n` 已默认注入 zh、en、zh-CN、en-US，无需额外 workaround。建议配置 `fallbackLng: ['zh-CN', 'en-US', 'zh', 'en']` 以兼容不同 locale 风格。详见 [dify-chat-widget-integration-obstacle.md](./dify-chat-widget-integration-obstacle.md)。
 
-**若 Next.js 构建报错**（如 "Global CSS cannot be imported from node_modules"）：部分环境会解析到 CJS 入口，触发 context require 误匹配。v0.1.4+ 已导出 ESM 子路径，可显式使用（当前 widget 0.1.8）：
+**若 Next.js 构建报错**（如 "Global CSS cannot be imported from node_modules"）：部分环境会解析到 CJS 入口，触发 context require 误匹配。v0.1.4+ 已导出 ESM 子路径，可显式使用（当前 widget 0.1.9）：
 
 ```ts
 import { DifyChat } from '@dify-chat/widget/dist/index.js'
