@@ -5,7 +5,8 @@ import { initReactI18next } from 'react-i18next'
 
 /**
  * 最小 init：无需 resources，init 后调用 addDifyChatI18n(i18n) 注入 Widget 文案。
- * 接入方可参考此写法；若打包后出现多份 i18next，必须显式调用 addDifyChatI18n(i18n)。
+ * addDifyChatI18n 已支持 zh、en、zh-CN、en-US，兼容 next-i18next 等使用 zh-CN/en-US 的项目。
+ * 若打包后出现多份 i18next，必须显式调用 addDifyChatI18n(i18n)。
  */
 void i18n
   .use(LanguageDetector)

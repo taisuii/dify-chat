@@ -7,7 +7,7 @@ description: 集成 DifyChat Widget 组件到 React 项目中。当需要将 Dif
 
 DifyChat Widget 是一个可复用的 React 聊天组件，用于快速对接 Dify AI 应用。
 
-**版本说明**：v0.1.3 调整了 dist 结构（CJS→`dist/cjs/`，CSS→`dist/assets/`）。若 Next.js 构建仍因 CJS context require 报错，可显式使用 ESM 入口：`import { DifyChat } from '@dify-chat/widget/dist/index.js'`。
+**版本说明**：当前 @dify-chat/* 0.7.4、@dify-chat/widget 0.1.5。v0.1.4 调整了 dist 结构（CJS→`dist/cjs/`，CSS→`dist/assets/`），并导出 ESM 子路径 `./dist/index.js`。v0.1.5 起 addDifyChatI18n 支持 zh-CN/en-US，i18next 改为 peerDependency。若 Next.js 构建仍因 CJS context require 报错，可显式使用：`import { DifyChat } from '@dify-chat/widget/dist/index.js'`。
 
 ## 对接清单（集成前必读）
 
@@ -17,7 +17,7 @@ DifyChat Widget 是一个可复用的 React 聊天组件，用于快速对接 Di
 |----|--------|------|------------|
 | **1. 主题色（CSS 变量）** | 二选一 | **方式 A（推荐）**：直接引入 Widget 内置主题：`import '@dify-chat/widget/theme-default.css'`。<br>**方式 B**：自己在 CSS 里定义 `:root` 与 `.dark` 下的主题变量（见下文）。 | 主题色不生效、布局/颜色错乱 |
 | **2. Tailwind** | ✅ 必须 | 安装并配置 Tailwind：content 含 `node_modules/@dify-chat/widget/dist/**/*.js`，theme 扩展主题色（见下文）。 | 类名不生效，界面「无样式」 |
-| **3. 国际化 (i18n)** | ✅ 最小即可 | **无需**自己提供文案。在入口执行一次 init，并在 **init 完成后**调用 `addDifyChatI18n(i18n)`（从 `@dify-chat/widget` 引入），将 Widget 文案注入到你用的 i18n 实例。打包后若存在多份 i18next，必须显式调用，否则会报错或显示 key。 | 若不 init 或不调用 addDifyChatI18n(i18n)，界面会显示 key 或报错 |
+| **3. 国际化 (i18n)** | ✅ 最小即可 | **无需**自己提供文案。在入口执行一次 init，并在 **init 完成后**调用 `addDifyChatI18n(i18n)`（从 `@dify-chat/widget` 引入），将 Widget 文案注入到你用的 i18n 实例。`addDifyChatI18n` 已支持 zh、en、zh-CN、en-US，兼容 next-i18next。打包后若存在多份 i18next，必须显式调用，否则会报错或显示 key。 | 若不 init 或不调用 addDifyChatI18n(i18n)，界面会显示 key 或报错 |
 | **4. Ant Design 深色** | ✅ 建议 | 深色模式下用 `ConfigProvider` 的 `theme.algorithm: darkAlgorithm`。 | 弹窗、按钮等在深色下仍为浅色 |
 
 **总结**：接入方**必须**做的是：Tailwind 配置、一次 i18n init 并在 init 完成后调用 **addDifyChatI18n(i18n)**、（建议）Ant 深色。主题色可**内置**（import theme-default.css）或自己写。i18n 文案由 Widget 提供，通过 **addDifyChatI18n(i18n)** 注入，无需手写 resources。
@@ -74,11 +74,14 @@ pnpm add @dify-chat/widget @dify-chat/theme
 ```json
 {
   "antd": ">=5.0.0",
+  "i18next": ">=25.0.0",
   "react": ">=18.0.0",
   "react-dom": ">=18.0.0",
   "react-i18next": ">=14.0.0"
 }
 ```
+
+`i18next` 与 `react-i18next` 作为 peer 可避免多实例，确保 `addDifyChatI18n(i18n)` 注入的文案被 Widget 正确使用。
 
 **注意**：DifyChat Widget 完全兼容 React 18 和 React 19。内部使用了 `useEffectEvent` 的 polyfill 实现，无需担心版本兼容性。
 
@@ -166,6 +169,8 @@ i18n
 ```
 
 **原因**：打包后宿主与 Widget 可能使用不同的 i18next 副本，Widget 无法可靠拿到「你用的那个 i18n」，所以需在 init 后显式调用 `addDifyChatI18n(i18n)`。
+
+**next-i18next 接入**：若使用 next-i18next（常用 zh-CN、en-US），`addDifyChatI18n` 已默认注入 zh-CN、en-US，无需额外 workaround。建议 `fallbackLng: ['zh-CN', 'en-US', 'zh', 'en']` 以兼容不同 locale 风格。
 
 ### 4. Ant Design 深色模式 — 与 showcase 一致
 
@@ -291,7 +296,7 @@ function App() {
 import { DifyChat } from '@dify-chat/widget/dist/index.js'
 ```
 
-v0.1.3+ 已导出 `./dist/index.js` 子路径，该写法可避免 CJS context 问题。
+v0.1.4+ 已导出 `./dist/index.js` 子路径，该写法可避免 CJS context 问题。
 
 ## 包结构说明
 

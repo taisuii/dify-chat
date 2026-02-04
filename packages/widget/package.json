@@ -1,6 +1,6 @@
 {
   "name": "@dify-chat/widget",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Dify Chat Widget - Reusable Dify Chat Component",
   "author": {
     "name": "taisuii",
@@ -75,18 +75,19 @@
     "remark-gfm": "catalog:",
     "remark-math": "catalog:",
     "dompurify": "catalog:",
-    "i18next": "^25.7.4",
     "i18next-browser-languagedetector": "^8.2.0",
     "zustand": "catalog:"
   },
   "peerDependencies": {
     "antd": ">=5.0.0",
+    "i18next": ">=25.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "react-i18next": ">=14.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:",
+    "i18next": "^25.7.4",
     "@rslib/core": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",

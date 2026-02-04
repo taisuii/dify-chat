@@ -154,7 +154,9 @@ import '@dify-chat/widget/theme-default.css'  // 或自写主题变量
 
 `katex` 与 `react-photo-view` 为 widget 的 dependencies，安装 widget 时会自动安装，一般无需额外声明。
 
-**若 Next.js 构建报错**（如 "Global CSS cannot be imported from node_modules"）：部分环境会解析到 CJS 入口，触发 context require 误匹配。v0.1.3+ 已导出 ESM 子路径，可显式使用：
+**next-i18next 接入**：若使用 next-i18next（常用 zh-CN、en-US），`addDifyChatI18n` 已默认注入 zh、en、zh-CN、en-US，无需额外 workaround。建议配置 `fallbackLng: ['zh-CN', 'en-US', 'zh', 'en']` 以兼容不同 locale 风格。详见 [dify-chat-widget-integration-obstacle.md](./dify-chat-widget-integration-obstacle.md)。
+
+**若 Next.js 构建报错**（如 "Global CSS cannot be imported from node_modules"）：部分环境会解析到 CJS 入口，触发 context require 误匹配。v0.1.4+ 已导出 ESM 子路径，可显式使用（当前 widget 0.1.5）：
 
 ```ts
 import { DifyChat } from '@dify-chat/widget/dist/index.js'
@@ -165,7 +167,7 @@ import { DifyChat } from '@dify-chat/widget/dist/index.js'
 ## 五、版本与依赖
 
 - **React**：>= 18.0.0（包内已提供 `useEffectEvent` 的 React 18 兼容实现）
-- **peerDependencies**：`antd` >= 5.0.0，`react` >= 18.0.0，`react-dom` >= 18.0.0，`react-i18next` >= 14.0.0
+- **peerDependencies**：`antd` >= 5.0.0，`i18next` >= 25.0.0，`react` >= 18.0.0，`react-dom` >= 18.0.0，`react-i18next` >= 14.0.0（`i18next` 作为 peer 可避免多实例）
 - **运行时依赖**：`@dify-chat/widget` 已在 dependencies 中声明 `i18next-browser-languagedetector`、`zustand` 等，安装 widget 时会自动安装，无需消费者额外添加。
 - **类型声明**：`@dify-chat/theme` 与 `@dify-chat/widget` 的 tgz 内均包含 `.d.ts`。widget 使用手写公开 API 声明（`DifyChat`、`DifyChatProps`），消费者可直接获得类型提示。
 
